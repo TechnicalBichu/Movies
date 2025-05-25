@@ -1,2 +1,2 @@
 // config.js
-const BASE_API_URL = 'https://mymoviesclan-demo-api.vercel.app/api/files';
+const BASE_API_URL = 'https://mymoviesclan-demo-api.vercel.app/api';

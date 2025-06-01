@@ -241,107 +241,114 @@
 </footer>
 
 <script>
-(async function() {
-    // Get the title from the URL
+    // Extract title from the URL query parameters
     const urlParams = new URLSearchParams(window.location.search);
     const title2 = decodeURIComponent(urlParams.get('title'));
 
-    // Fetch movie data from API
-    const response = await fetch('https://mymoviesclan-demo-api.vercel.app/api/files');
-    const apiData = await response.json();
+    // Fetch the movie data stored in localStorage
+    const movieData = JSON.parse(localStorage.getItem('movieData'));
 
-    // Find the movie matching the URL title
-    const movieData = apiData.find(m => m.title === title2);
-
-    if (movieData) {
-        // Populate movie details (example for movieTitle, you can add more as needed)
+    // Check if movie data is available and matches the requested title
+    if (movieData && movieData.title === title2) {
+        // Populate movie details
         document.querySelectorAll('.movieTitle').forEach(el => el.textContent = movieData.title);
-        document.querySelectorAll('.movieTitle3').forEach(el => el.textContent = movieData.title3 || '');
-        document.querySelectorAll('.movieType').forEach(el => el.textContent = movieData.type || '');
-        document.querySelectorAll('.movieYear').forEach(el => el.textContent = movieData.year || '');
+        document.querySelectorAll('.movieTitle3').forEach(el => el.textContent = movieData.title3);
+        document.querySelectorAll('.movieType').forEach(el => el.textContent = movieData.type);
+        document.querySelectorAll('.movieYear').forEach(el => el.textContent = movieData.year);
         document.querySelectorAll('.moviePoster').forEach(el => {
             el.src = movieData.thumbnail || 'default-poster.jpg';
-        });
+        }); 
 
         // For series, show season and episode; otherwise, default to 'N/A'
-        document.querySelectorAll('.movieSeason').forEach(el => el.textContent = movieData.qualities?.[0]?.season || 'N/A');
-        document.querySelectorAll('.movieEpisode').forEach(el => el.textContent = movieData.qualities?.[0]?.episode || 'N/A');
-        document.querySelectorAll('.movieLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.language || '');
-        document.querySelectorAll('.movieOtherLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.otherLanguage || '');
+        document.querySelectorAll('.movieSeason').forEach(el => el.textContent = movieData.qualities?.[0]?.season);
+        document.querySelectorAll('.movieEpisode').forEach(el => el.textContent = movieData.qualities?.[0]?.episode);
 
-        // IMDb data (optional, check if present)
-       .runtime || '');
-            document.querySelectorAll('.imdbRating').forEach(el => el.textContent = movieData.imdbData.imdbRating || '');
-            document.querySelectorAll('.imdbVotes').forEach(el => el.textContent = movieData.imdbData.imdbVotes || '');
-            document.querySelectorAll('.imdbGenre').forEach(el => el.textContent = movieData.imdbData.Genre || '');
-            document.querySelectorAll('.imdbPlot').forEach(el => el.textContent = movieData.imdbData.plot || '');
+        // Populate language and other languages from the first quality
+        document.querySelectorAll('.movieLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.language);
+        document.querySelectorAll('.movieOtherLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.otherLanguage);
+
+        // Populate IMDb data
+        if (movieData.imdbData) {
+            document.querySelectorAll('.imdbRuntime').forEach(el => el.textContent = movieData.imdbData.runtime);
+            document.querySelectorAll('.imdbRating').forEach(el => el.textContent = movieData.imdbData.imdbRating);
+            document.querySelectorAll('.imdbVotes').forEach(el => el.textContent = movieData.imdbData.imdbVotes);
+            document.querySelectorAll('.imdbGenre').forEach(el => el.textContent = movieData.imdbData.Genre);
+            document.querySelectorAll('.imdbPlot').forEach(el => el.textContent = movieData.imdbData.plot);
             document.querySelectorAll('.imdbPoster').forEach(el => {
                 el.src = movieData.imdbData.poster || movieData.thumbnail;
             });
-            document.querySelectorAll('.imdbCountry').forEach(el => el.textContent = movieData.imdbData.country || '');
-            document.querySelectorAll('.imdbDirector').forEach(el => el.textContent = movieData.imdbData.director || '');
-            document.querySelectorAll('.imdbWriter').forEach(el => el.textContent = movieData.imdbData.writer || '');
-            document.querySelectorAll('.imdbActors').forEach(el => el.textContent = movieData.imdbData.actors || '');
-            document.querySelectorAll('.imdbType').forEach(el => el.textContent = movieData.imdbData.Type || '');
-            document.querySelectorAll('.imdbSeasons').forEach(el => el.textContent = movieData.imdbData.totalSeasons || '');
-            document.querySelectorAll('.imdbRelease').forEach(el => el.textContent = movieData.imdbData.releaseDate || '');
+            document.querySelectorAll('.imdbCountry').forEach(el => el.textContent = movieData.imdbData.country);
+            document.querySelectorAll('.imdbDirector').forEach(el => el.textContent = movieData.imdbData.director);
+            document.querySelectorAll('.imdbWriter').forEach(el => el.textContent = movieData.imdbData.writer);
+            document.querySelectorAll('.imdbActors').forEach(el => el.textContent = movieData.imdbData.actors);
+            document.querySelectorAll('.imdbType').forEach(el => el.textContent = movieData.imdbData.Type);
+            document.querySelectorAll('.imdbSeasons').forEach(el => el.textContent = movieData.imdbData.totalSeasons);
+            document.querySelectorAll('.imdbRelease').forEach(el => el.textContent = movieData.imdbData.releaseDate);
         }
 
-        // Download buttons
+        // Populate download buttons
         const downloadOptionsContainer = document.getElementById('downloadOptions');
-        downloadOptionsContainer.innerHTML = ''; // Clear previous content
-
         movieData.qualities.forEach((quality) => {
-            // Container for button and text
+            // Check if the movie is a series and has season/episode details
+            let extraInfo = '';
+            if (movieData.type && movieData.type === 'series') {
+                const season = quality.season || 'S?'; // Default to S? if not available
+                const episode = quality.episode || 'E?'; // Default to E? if not available
+                extraInfo = ` - Season ${season}, Episode ${episode}`;
+            }
+
+            // Create a container for the button and its text
             const buttonContainer = document.createElement('div');
-            buttonContainer.style.marginBottom = '14px';
+            buttonContainer.style.marginBottom = '10px'; // Add some spacing between buttons
 
-            // Description text
+            // Create a text element for the button description
             const buttonText = document.createElement('p');
+            buttonText.style.marginBottom = '10px';
             buttonText.style.fontSize = '14px';
-            buttonText.style.color = '#f8f';
+            buttonText.style.color = '#f8';
 
-            // Language
+            // Create spans for language and otherLanguage with orange color
             const languageSpan = document.createElement('span');
-            languageSpan.textContent = quality.language || '';
+            languageSpan.textContent = `${quality.language}`;
             languageSpan.style.color = 'orange';
 
-            // Other Language
             const otherLanguageSpan = document.createElement('span');
-            otherLanguageSpan.textContent = quality.otherLanguage ? ` ${quality.otherLanguage}` : '';
+            otherLanguageSpan.textContent = ` ${quality.otherLanguage}`;
             otherLanguageSpan.style.color = 'orange';
 
-            // Size
+            // Create the size span with white color
             const sizeSpan = document.createElement('span');
-            sizeSpan.textContent = quality.fileSize ? ` [${quality.fileSize}]` : '';
+            sizeSpan.textContent = `[${quality.fileSize}]`;
             sizeSpan.style.color = '#fff';
 
             // Set the rest of the text for the button (title and quality)
-            buttonText.textContent = `Download ${movieData.title3 || movieData.title} {`;
+            buttonText.textContent = `Download ${movieData.title3} {`;
             buttonText.appendChild(languageSpan);
             buttonText.appendChild(otherLanguageSpan);
-            buttonText.textContent += `} ${quality.quality || ''}`;
+            buttonText.textContent += `} ${quality.quality} `;
+
+            // Append the size span
             buttonText.appendChild(sizeSpan);
 
-            // Download button
+            // Create the button for downloading
             const downloadButton = document.createElement('button');
-            downloadButton.textContent = 'Download Now';
+            downloadButton.textContent = `Download Now`;
             downloadButton.style.display = 'block';
 
             downloadButton.addEventListener('click', () => {
                 const a = document.createElement('a');
                 a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
-                a.download = `${movieData.title3 || movieData.title}_${quality.quality || ''}.mp4`;
+                a.download = `${movieData.title3}_${quality.quality}.mp4`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
             });
 
-            // Add button and text to container
+            // Append the text and button to the container
             buttonContainer.appendChild(buttonText);
             buttonContainer.appendChild(downloadButton);
 
-            // Title below the button (unique for every link)
+            // >>> ADDITION FOR TITLE BELOW BUTTON <<<
             if (quality.title) {
                 const titleText = document.createElement('p');
                 titleText.textContent = quality.title;
@@ -350,14 +357,12 @@
                 titleText.style.color = '#fff';
                 buttonContainer.appendChild(titleText);
             }
+            // >>> END ADDITION <<<
 
+            // Append the container to the download options container
             downloadOptionsContainer.appendChild(buttonContainer);
         });
-    } else {
-        // Movie not found
-        document.getElementById('downloadOptions').textContent = 'Movie not found.';
     }
-})();
 </script>
 
 

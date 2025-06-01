@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="https://cdn.plyr.io/3.6.12/plyr.css" />
 <!-- Plyr Script -->
   <script src="https://cdn.plyr.io/3.6.12/plyr.polyfilled.js"></script>
-  
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> <!-- Add Font Awesome -->
-	
+
 <style>
 /* General Body Styles */
   body {
@@ -53,7 +53,7 @@
     color: white;
     text-decoration: none; 
   } 
-  
+
   .headerIcon {
     display: flex;
     gap: 10px; /* Adjust gap size as needed */
@@ -81,48 +81,6 @@
   /* Movie thumbnail (not shown as we use poster image for video player) */
   .download-btn {
     display: none;  /* Hide the thumbnail */
-  }
-
-  /* Video player style */
-  #player {
-    width: 100%; /* Fixed width */
-    height: 220px; /* Fixed height */
-    object-fit: cover; /* Ensures video or poster fits the defined area */
-    border-radius: 5px; /* Optional: Adds rounded corners */
-    background-color: black; /* Fallback for poster image loading */
-  }
-
-  /* Optional: Ensure the parent container respects the fixed dimensions */
-  .video-player {
-    width: 100%;
-    max-width: 800px;
-    height: 220px;
-    margin: 20px auto;
-    border-radius: 5px; /* Optional: Adds rounded corners */
-    overflow: hidden; /* Prevent overflow issues */
-  }
-
-  /* Quality option buttons */
-  .quality-options {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
-  }
-
-  .quality-options button {
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #ff5722;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    transition: background-color 0.3s;
-  }
-
-  .quality-options button:hover {
-    background-color: #e64a19;
   }
 
   /* Container for the download buttons */
@@ -184,7 +142,7 @@
   <button class="searchbtn" onclick="window.location.href='src/template/search.html';">
     <i class="fas fa-search"></i>
   </button>
-  
+
   <!-- Mode Toggle Button -->
   <button class="mode-toggle" onclick="toggleMode()">
     <i class="fas fa-sun"></i>
@@ -205,7 +163,7 @@
 
 <div class="container2" style="display: flex; flex-direction: column;">
 <div class="posterContainer" style="margin-right: 20px; background-color: #000; padding: 20px; border-radius: 10px 10px 0px 0px; margin-right: 0; margin-bottom: 0;">
-	
+
 <img class="imdbPoster" alt="Movie Poster" style="max-width: 300px; height: auto; display: block; margin: 0 auto; border-radius:10px;">
 </div><div class="detailsContainer" style="margin-right: 20px; background-color: #000; padding: 20px; color: #fff; border-radius: 0px 0px 10px 10px; margin-right: 0; margin-bottom: 0;">
 <div style="color: #C1C1C1;"><h2 style=" color: #C1C1C1; font-size: 24px; margin-top: 0;"><span class="movieTitle"></span> (<span class="movieYear"></span>)</h2></div>
@@ -236,26 +194,6 @@
 <!-- Download Options -->
 <div id="downloadOptions"></div>
 
-
-<p> <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
-<span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
-<b>Stream online :-</b>
-</span></span> </p>
-
-
-<!-- Video Player Section -->
-  <div class="video-player" style="margin-top: 0px;">
-    <video id="player" controls crossorigin playsinline poster="">
-      <!-- Video quality sources will be populated here by JavaScript -->
-    </video>
-  </div>
- 
-
-  <!-- Quality Options (HIDDEN) -->
-  <div class="quality-options" id="qualityOptions" style="display: none;">
-<!-- Quality option buttons will be added here -->
-  </div>
-
 </div> <!-- Main-Container Close/Ends Here -->
 
 
@@ -263,7 +201,7 @@
   <footer>
   <div class="footer" style="margin-top: 40px; border-radius: 20px 20px 0px 0px; box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 35px; box-sizing: border-box; padding:15px; position: relative; left:0; bottom:0; width:100%; text-align: center; background-color: #222; font-size: 14px;  color: #fff;">
     <div class="made-with-love" style="color: #ff9800; margin: 5px 0;">Made with ❤ by TechnicalBichu</div>
-    
+
     <div class="social-links" style="
         margin-top: 10px; margin-bottom: 10px;">
         <a href="https://github.com/" target="_blank" style="
@@ -288,7 +226,7 @@
             <i class="fab fa-linkedin"></i>
         </a>
     </div>
-    
+
     <div>
       © <span id='getYear'>
       <script>
@@ -301,7 +239,7 @@
     </div>
   </div>
 </footer>
-  
+
 
   <script>
     // Extract title from the URL query parameters
@@ -348,36 +286,6 @@
             document.querySelectorAll('.imdbSeasons').forEach(el => el.textContent = movieData.imdbData.totalSeasons);
             document.querySelectorAll('.imdbRelease').forEach(el => el.textContent = movieData.imdbData.releaseDate);
         }
-
-        // Set the poster image for the video player
-        const playerElement = document.getElementById('player');
-        playerElement.setAttribute('poster', movieData.thumbnail);
-
-        // Populate video sources and add quality option buttons
-        const qualityOptionsContainer = document.getElementById('qualityOptions');
-        movieData.qualities.forEach((quality, index) => {
-            // Create source element for each quality
-            const source = document.createElement('source');
-            source.src = quality.streamUrl;
-            source.type = 'video/mp4';
-            source.setAttribute('size', quality.quality.match(/\d+/)[0]);
-            playerElement.appendChild(source);
-
-            // Create button for each quality option
-            const button = document.createElement('button');
-            button.textContent = `${quality.quality} (${quality.fileSize})`;
-            button.addEventListener('click', () => {
-                playerElement.querySelectorAll('source').forEach(src => {
-                    if (src.getAttribute('size') === quality.quality.match(/\d+/)[0]) {
-                        playerElement.src = src.src;
-                    }
-                });
-                playerElement.load();
-                playerElement.play();
-            });
-
-            qualityOptionsContainer.appendChild(button);
-        });
 
         // Populate download buttons
         const downloadOptionsContainer = document.getElementById('downloadOptions');
@@ -447,11 +355,6 @@
             downloadOptionsContainer.appendChild(buttonContainer);
         });
 
-        // Initialize Plyr with quality control enabled
-        const player = new Plyr(playerElement, {
-            controls: ['play', 'play-large', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
-            settings: ['quality']
-        });
     }
 </script>
 
@@ -473,3 +376,6 @@
       }
     }
 </script> 
+
+</body>
+</html>

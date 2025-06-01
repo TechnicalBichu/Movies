@@ -305,153 +305,155 @@
 
   <script>
     // Extract title from the URL query parameters
-const urlParams = new URLSearchParams(window.location.search);
-const title2 = decodeURIComponent(urlParams.get('title'));
+    const urlParams = new URLSearchParams(window.location.search);
+    const title2 = decodeURIComponent(urlParams.get('title'));
 
-// Fetch the movie data stored in localStorage
-const movieData = JSON.parse(localStorage.getItem('movieData'));
+    // Fetch the movie data stored in localStorage
+    const movieData = JSON.parse(localStorage.getItem('movieData'));
 
-// Check if movie data is available and matches the requested title
-if (movieData && movieData.title === title2) {
-    // Populate movie details
-    document.querySelectorAll('.movieTitle').forEach(el => el.textContent = movieData.title);
-    document.querySelectorAll('.movieTitle3').forEach(el => el.textContent = movieData.title3);
-    document.querySelectorAll('.movieType').forEach(el => el.textContent = movieData.type);
-    document.querySelectorAll('.movieYear').forEach(el => el.textContent = movieData.year);
-    document.querySelectorAll('.moviePoster').forEach(el => {
-        el.src = movieData.thumbnail || 'default-poster.jpg';
-    }); 
+    // Check if movie data is available and matches the requested title
+    if (movieData && movieData.title === title2) {
+        // Populate movie details
+        document.querySelectorAll('.movieTitle').forEach(el => el.textContent = movieData.title);
+        document.querySelectorAll('.movieTitle3').forEach(el => el.textContent = movieData.title3);
+        document.querySelectorAll('.movieType').forEach(el => el.textContent = movieData.type);
+        document.querySelectorAll('.movieYear').forEach(el => el.textContent = movieData.year);
+        document.querySelectorAll('.moviePoster').forEach(el => {
+            el.src = movieData.thumbnail || 'default-poster.jpg';
+        }); 
 
-    // For series, show season and episode; otherwise, default to 'N/A'
-    document.querySelectorAll('.movieSeason').forEach(el => el.textContent = movieData.qualities?.[0]?.season);
-    document.querySelectorAll('.movieEpisode').forEach(el => el.textContent = movieData.qualities?.[0]?.episode);
+        // For series, show season and episode; otherwise, default to 'N/A'
+        document.querySelectorAll('.movieSeason').forEach(el => el.textContent = movieData.qualities?.[0]?.season);
+        document.querySelectorAll('.movieEpisode').forEach(el => el.textContent = movieData.qualities?.[0]?.episode);
 
-    // Populate language and other languages from the first quality
-    document.querySelectorAll('.movieLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.language);
-    document.querySelectorAll('.movieOtherLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.otherLanguage);
+        // Populate language and other languages from the first quality
+        document.querySelectorAll('.movieLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.language);
+        document.querySelectorAll('.movieOtherLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.otherLanguage);
 
-    // Populate IMDb data
-    if (movieData.imdbData) {
-        document.querySelectorAll('.imdbRuntime').forEach(el => el.textContent = movieData.imdbData.runtime);
-        document.querySelectorAll('.imdbRating').forEach(el => el.textContent = movieData.imdbData.imdbRating);
-        document.querySelectorAll('.imdbVotes').forEach(el => el.textContent = movieData.imdbData.imdbVotes);
-        document.querySelectorAll('.imdbGenre').forEach(el => el.textContent = movieData.imdbData.Genre);
-        document.querySelectorAll('.imdbPlot').forEach(el => el.textContent = movieData.imdbData.plot);
-        document.querySelectorAll('.imdbPoster').forEach(el => {
-            el.src = movieData.imdbData.poster || movieData.thumbnail;
-        });
-        document.querySelectorAll('.imdbCountry').forEach(el => el.textContent = movieData.imdbData.country);
-        document.querySelectorAll('.imdbDirector').forEach(el => el.textContent = movieData.imdbData.director);
-        document.querySelectorAll('.imdbWriter').forEach(el => el.textContent = movieData.imdbData.writer);
-        document.querySelectorAll('.imdbActors').forEach(el => el.textContent = movieData.imdbData.actors);
-        document.querySelectorAll('.imdbType').forEach(el => el.textContent = movieData.imdbData.Type);
-        document.querySelectorAll('.imdbSeasons').forEach(el => el.textContent = movieData.imdbData.totalSeasons);
-        document.querySelectorAll('.imdbRelease').forEach(el => el.textContent = movieData.imdbData.releaseDate);
-    }
-
-    // Set the poster image for the video player
-    const playerElement = document.getElementById('player');
-    playerElement.setAttribute('poster', movieData.thumbnail);
-
-    // Populate video sources and add quality option buttons
-    const qualityOptionsContainer = document.getElementById('qualityOptions');
-    movieData.qualities.forEach((quality, index) => {
-        // Create source element for each quality
-        const source = document.createElement('source');
-        source.src = quality.streamUrl;
-        source.type = 'video/mp4';
-        source.setAttribute('size', quality.quality.match(/\d+/)[0]);
-        playerElement.appendChild(source);
-
-        // Create button for each quality option
-        const button = document.createElement('button');
-        button.textContent = `${quality.quality} (${quality.fileSize})`;
-        button.addEventListener('click', () => {
-            playerElement.querySelectorAll('source').forEach(src => {
-                if (src.getAttribute('size') === quality.quality.match(/\d+/)[0]) {
-                    playerElement.src = src.src;
-                }
+        // Populate IMDb data
+        if (movieData.imdbData) {
+            document.querySelectorAll('.imdbRuntime').forEach(el => el.textContent = movieData.imdbData.runtime);
+            document.querySelectorAll('.imdbRating').forEach(el => el.textContent = movieData.imdbData.imdbRating);
+            document.querySelectorAll('.imdbVotes').forEach(el => el.textContent = movieData.imdbData.imdbVotes);
+            document.querySelectorAll('.imdbGenre').forEach(el => el.textContent = movieData.imdbData.Genre);
+            document.querySelectorAll('.imdbPlot').forEach(el => el.textContent = movieData.imdbData.plot);
+            document.querySelectorAll('.imdbPoster').forEach(el => {
+                el.src = movieData.imdbData.poster || movieData.thumbnail;
             });
-            playerElement.load();
-            playerElement.play();
+            document.querySelectorAll('.imdbCountry').forEach(el => el.textContent = movieData.imdbData.country);
+            document.querySelectorAll('.imdbDirector').forEach(el => el.textContent = movieData.imdbData.director);
+            document.querySelectorAll('.imdbWriter').forEach(el => el.textContent = movieData.imdbData.writer);
+            document.querySelectorAll('.imdbActors').forEach(el => el.textContent = movieData.imdbData.actors);
+            document.querySelectorAll('.imdbType').forEach(el => el.textContent = movieData.imdbData.Type);
+            document.querySelectorAll('.imdbSeasons').forEach(el => el.textContent = movieData.imdbData.totalSeasons);
+            document.querySelectorAll('.imdbRelease').forEach(el => el.textContent = movieData.imdbData.releaseDate);
+        }
+
+        // Set the poster image for the video player
+        const playerElement = document.getElementById('player');
+        playerElement.setAttribute('poster', movieData.thumbnail);
+
+        // Populate video sources and add quality option buttons
+        const qualityOptionsContainer = document.getElementById('qualityOptions');
+        movieData.qualities.forEach((quality, index) => {
+            // Create source element for each quality
+            const source = document.createElement('source');
+            source.src = quality.streamUrl;
+            source.type = 'video/mp4';
+            source.setAttribute('size', quality.quality.match(/\d+/)[0]);
+            playerElement.appendChild(source);
+
+            // Create button for each quality option
+            const button = document.createElement('button');
+            button.textContent = `${quality.quality} (${quality.fileSize})`;
+            button.addEventListener('click', () => {
+                playerElement.querySelectorAll('source').forEach(src => {
+                    if (src.getAttribute('size') === quality.quality.match(/\d+/)[0]) {
+                        playerElement.src = src.src;
+                    }
+                });
+                playerElement.load();
+                playerElement.play();
+            });
+
+            qualityOptionsContainer.appendChild(button);
         });
 
-        qualityOptionsContainer.appendChild(button);
-    });
+        // Populate download buttons
+        const downloadOptionsContainer = document.getElementById('downloadOptions');
+        movieData.qualities.forEach((quality) => {
+            // Check if the movie is a series and has season/episode details
+            let extraInfo = '';
+            if (movieData.type && movieData.type === 'series') {
+                const season = quality.season || 'S?'; // Default to S? if not available
+                const episode = quality.episode || 'E?'; // Default to E? if not available
+                extraInfo = ` - Season ${season}, Episode ${episode}`;
+            }
 
-    // Populate download buttons
-const downloadOptionsContainer = document.getElementById('downloadOptions');
-movieData.qualities.forEach((quality) => {
-    // Check if the movie is a series and has season/episode details
-    let extraInfo = '';
-    if (movieData.type && movieData.type === 'series') {
-        const season = quality.season || 'S?'; // Default to S? if not available
-        const episode = quality.episode || 'E?'; // Default to E? if not available
-        extraInfo = ` - Season ${season}, Episode ${episode}`;
+            // Create a container for the button and its text
+            const buttonContainer = document.createElement('div');
+            buttonContainer.style.marginBottom = '10px'; // Add some spacing between buttons
+
+            // Create a text element for the button description
+            const buttonText = document.createElement('p');
+            buttonText.style.marginBottom = '10px'; // Remove default paragraph margins
+            buttonText.style.fontSize = '14px'; // Optional: Adjust font size
+            buttonText.style.color = '#f8f'; // Set default text color to white
+
+            // Create spans for language and otherLanguage with orange color
+            const languageSpan = document.createElement('span');
+            languageSpan.textContent = `${quality.language}`;
+            languageSpan.style.color = 'orange'; // Set color to orange
+
+            const otherLanguageSpan = document.createElement('span');
+            otherLanguageSpan.textContent = ` ${quality.otherLanguage}`;
+            otherLanguageSpan.style.color = 'orange'; // Set color to orange
+
+            // Create the size span with orange color
+            const sizeSpan = document.createElement('span');
+            sizeSpan.textContent = `[${quality.fileSize}]`; // Add file size in the format [size]
+            sizeSpan.style.color = '#fff'; // Set color to orange
+
+            // Set the rest of the text for the button (title and quality)
+            buttonText.textContent = `Download ${movieData.title3} {`; // Start text with the title and open the curly braces
+            buttonText.appendChild(languageSpan); // Add language span to the text
+            buttonText.appendChild(otherLanguageSpan); // Add other language span to the text
+            buttonText.textContent += `} ${quality.quality} `; // Close the curly braces and add quality
+
+            // Append the size span
+            buttonText.appendChild(sizeSpan);
+
+            // Create the button for downloading
+            const downloadButton = document.createElement('button');
+            downloadButton.textContent = `Download Now`;
+            downloadButton.style.display = 'block'; // Ensure the button is below the text
+
+            // >>> EDITED SECTION <<<
+            downloadButton.addEventListener('click', () => {
+                const a = document.createElement('a'); // Create a temporary anchor tag
+                a.href = 'https://thecuriousrealm.blogspot.com/p/redirecting.html?' + encodeURIComponent(quality.streamUrl); // Prepend redirect URL
+                a.download = `${movieData.title3}_${quality.quality}.mp4`; // Set download filename
+                document.body.appendChild(a);
+                a.click(); // Trigger download
+                document.body.removeChild(a); // Clean up
+            });
+            // >>> END EDITED SECTION <<<
+
+            // Append the text and button to the container
+            buttonContainer.appendChild(buttonText);
+            buttonContainer.appendChild(downloadButton);
+
+            // Append the container to the download options container
+            downloadOptionsContainer.appendChild(buttonContainer);
+        });
+
+        // Initialize Plyr with quality control enabled
+        const player = new Plyr(playerElement, {
+            controls: ['play', 'play-large', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
+            settings: ['quality']
+        });
     }
-
-    // Create a container for the button and its text
-    const buttonContainer = document.createElement('div');
-    buttonContainer.style.marginBottom = '10px'; // Add some spacing between buttons
-
-    // Create a text element for the button description
-    const buttonText = document.createElement('p');
-    buttonText.style.marginBottom = '10px'; // Remove default paragraph margins
-    buttonText.style.fontSize = '14px'; // Optional: Adjust font size
-    buttonText.style.color = '#f8f'; // Set default text color to white
-
-    // Create spans for language and otherLanguage with orange color
-    const languageSpan = document.createElement('span');
-    languageSpan.textContent = `${quality.language}`;
-    languageSpan.style.color = 'orange'; // Set color to orange
-
-    const otherLanguageSpan = document.createElement('span');
-    otherLanguageSpan.textContent = ` ${quality.otherLanguage}`;
-    otherLanguageSpan.style.color = 'orange'; // Set color to orange
-
-    // Create the size span with orange color
-    const sizeSpan = document.createElement('span');
-    sizeSpan.textContent = `[${quality.fileSize}]`; // Add file size in the format [size]
-    sizeSpan.style.color = '#fff'; // Set color to orange
-
-    // Set the rest of the text for the button (title and quality)
-    buttonText.textContent = `Download ${movieData.title3} {`; // Start text with the title and open the curly braces
-    buttonText.appendChild(languageSpan); // Add language span to the text
-    buttonText.appendChild(otherLanguageSpan); // Add other language span to the text
-    buttonText.textContent += `} ${quality.quality} `; // Close the curly braces and add quality
-
-    // Append the size span
-    buttonText.appendChild(sizeSpan);
-
-    // Create the button for downloading
-    const downloadButton = document.createElement('button');
-    downloadButton.textContent = `Download Now`;
-    downloadButton.style.display = 'block'; // Ensure the button is below the text
-
-    downloadButton.addEventListener('click', () => {
-        const a = document.createElement('a'); // Create a temporary anchor tag
-        a.href = quality.streamUrl; // Use the stream URL as the download link
-        a.download = `${movieData.title3}_${quality.quality}.mp4`; // Set download filename
-        document.body.appendChild(a);
-        a.click(); // Trigger download
-        document.body.removeChild(a); // Clean up
-    });
-
-    // Append the text and button to the container
-    buttonContainer.appendChild(buttonText);
-    buttonContainer.appendChild(downloadButton);
-
-    // Append the container to the download options container
-    downloadOptionsContainer.appendChild(buttonContainer);
-});
-
-    // Initialize Plyr with quality control enabled
-    const player = new Plyr(playerElement, {
-        controls: ['play', 'play-large', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
-        settings: ['quality']
-    });
-}
-  </script> 
+</script>
 
 
 

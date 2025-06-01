@@ -240,8 +240,7 @@
   </div>
 </footer>
 
-
-  <script>
+<script>
     // Extract title from the URL query parameters
     const urlParams = new URLSearchParams(window.location.search);
     const title2 = decodeURIComponent(urlParams.get('title'));
@@ -304,29 +303,29 @@
 
             // Create a text element for the button description
             const buttonText = document.createElement('p');
-            buttonText.style.marginBottom = '10px'; // Remove default paragraph margins
-            buttonText.style.fontSize = '14px'; // Optional: Adjust font size
-            buttonText.style.color = '#f8f'; // Set default text color to white
+            buttonText.style.marginBottom = '10px';
+            buttonText.style.fontSize = '14px';
+            buttonText.style.color = '#f8';
 
             // Create spans for language and otherLanguage with orange color
             const languageSpan = document.createElement('span');
             languageSpan.textContent = `${quality.language}`;
-            languageSpan.style.color = 'orange'; // Set color to orange
+            languageSpan.style.color = 'orange';
 
             const otherLanguageSpan = document.createElement('span');
             otherLanguageSpan.textContent = ` ${quality.otherLanguage}`;
-            otherLanguageSpan.style.color = 'orange'; // Set color to orange
+            otherLanguageSpan.style.color = 'orange';
 
-            // Create the size span with orange color
+            // Create the size span with white color
             const sizeSpan = document.createElement('span');
-            sizeSpan.textContent = `[${quality.fileSize}]`; // Add file size in the format [size]
-            sizeSpan.style.color = '#fff'; // Set color to orange
+            sizeSpan.textContent = `[${quality.fileSize}]`;
+            sizeSpan.style.color = '#fff';
 
             // Set the rest of the text for the button (title and quality)
-            buttonText.textContent = `Download ${movieData.title3} {`; // Start text with the title and open the curly braces
-            buttonText.appendChild(languageSpan); // Add language span to the text
-            buttonText.appendChild(otherLanguageSpan); // Add other language span to the text
-            buttonText.textContent += `} ${quality.quality} `; // Close the curly braces and add quality
+            buttonText.textContent = `Download ${movieData.title3} {`;
+            buttonText.appendChild(languageSpan);
+            buttonText.appendChild(otherLanguageSpan);
+            buttonText.textContent += `} ${quality.quality} `;
 
             // Append the size span
             buttonText.appendChild(sizeSpan);
@@ -334,27 +333,35 @@
             // Create the button for downloading
             const downloadButton = document.createElement('button');
             downloadButton.textContent = `Download Now`;
-            downloadButton.style.display = 'block'; // Ensure the button is below the text
+            downloadButton.style.display = 'block';
 
-            // >>> EDITED SECTION <<<
             downloadButton.addEventListener('click', () => {
-                const a = document.createElement('a'); // Create a temporary anchor tag
-                a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl); // Prepend redirect URL
-                a.download = `${movieData.title3}_${quality.quality}.mp4`; // Set download filename
+                const a = document.createElement('a');
+                a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
+                a.download = `${movieData.title3}_${quality.quality}.mp4`;
                 document.body.appendChild(a);
-                a.click(); // Trigger download
-                document.body.removeChild(a); // Clean up
+                a.click();
+                document.body.removeChild(a);
             });
-            // >>> END EDITED SECTION <<<
 
             // Append the text and button to the container
             buttonContainer.appendChild(buttonText);
             buttonContainer.appendChild(downloadButton);
 
+            // >>> ADDITION FOR TITLE BELOW BUTTON <<<
+            if (quality.title) {
+                const titleText = document.createElement('p');
+                titleText.textContent = quality.title;
+                titleText.style.marginTop = '5px';
+                titleText.style.fontSize = '13px';
+                titleText.style.color = '#fff';
+                buttonContainer.appendChild(titleText);
+            }
+            // >>> END ADDITION <<<
+
             // Append the container to the download options container
             downloadOptionsContainer.appendChild(buttonContainer);
         });
-
     }
 </script>
 

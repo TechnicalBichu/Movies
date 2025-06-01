@@ -431,7 +431,7 @@ movieData.qualities.forEach((quality) => {
     downloadButton.addEventListener('click', () => {
         const a = document.createElement('a'); // Create a temporary anchor tag
         a.href = quality.streamUrl; // Use the stream URL as the download link
-        a.download = `${movieData.title3}_${quality.quality}.mp4`; // Set download filename
+        a.download = `$https://thecuriousrealm.blogspot.com/p/redirecting.html?{movieData.title3}_${quality.quality}.mp4`; // Set download filename
         document.body.appendChild(a);
         a.click(); // Trigger download
         document.body.removeChild(a); // Clean up

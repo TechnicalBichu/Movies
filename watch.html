@@ -339,7 +339,7 @@
             // >>> EDITED SECTION <<<
             downloadButton.addEventListener('click', () => {
                 const a = document.createElement('a'); // Create a temporary anchor tag
-                a.href = 'https://thecuriousrealm.blogspot.com/p/redirecting.html?' + encodeURIComponent(quality.streamUrl); // Prepend redirect URL
+                a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl); // Prepend redirect URL
                 a.download = `${movieData.title3}_${quality.quality}.mp4`; // Set download filename
                 document.body.appendChild(a);
                 a.click(); // Trigger download

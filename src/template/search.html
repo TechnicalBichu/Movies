@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movie Search</title>
+<title>Nexus Files</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -81,7 +81,7 @@
   <div class="logo">Movie Search</div>
   <div class="search-container">
     <span class="search-icon" onclick="toggleSearchInput()">🔍</span>
-    <input type="text" class="search-input" id="searchInput" placeholder="Search movies...">
+    <input type="text" class="search-input" id="searchInput" placeholder="Search Here...">
   </div>
 </div>
 
@@ -100,7 +100,7 @@ function toggleSearchInput() {
 
 // Fetch movies based on search query
 async function searchMovies(query) {
-  const apiUrl = `https://mymoviesclan-demo-api.vercel.app/api/search?query=${query}`;
+  const apiUrl = `https://mymoviesclan-demo-api.vercel.app/api/files/search?query=${query}`;
   const response = await fetch(apiUrl);
   const data = await response.json();
   return data.results;

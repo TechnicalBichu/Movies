@@ -6,12 +6,9 @@
 <title>Nexus Files</title>
 
 <link rel="stylesheet" href="https://cdn.plyr.io/3.6.12/plyr.css" />
-<!-- Plyr Script -->
-  <script src="https://cdn.plyr.io/3.6.12/plyr.polyfilled.js"></script>
+<script src="https://cdn.plyr.io/3.6.12/plyr.polyfilled.js"></script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> <!-- Add Font Awesome -->
-
-<style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> <style>
 /* General Body Styles */
   body {
     font-family: 'Roboto', sans-serif;
@@ -51,8 +48,8 @@
     margin: 0;
     font-weight: bold;
     color: white;
-    text-decoration: none; 
-  } 
+    text-decoration: none;
+  }
 
   .headerIcon {
     display: flex;
@@ -136,33 +133,28 @@
 
   <body class="light-mode">
 
-  <!-- Header -->
-<header>
+  <header>
   <a href="/">Nexus Files</a>
   <div class="headerIcon">
-  <!-- Search Button -->
   <button class="searchbtn" onclick="window.location.href='src/template/search.html';">
     <i class="fas fa-search"></i>
   </button>
 
-  <!-- Mode Toggle Button -->
   <button class="mode-toggle" onclick="toggleMode()">
     <i class="fas fa-sun"></i>
   </button>
   </div>
 </header>
 
-<!-- Main Container -->
 <div class="main-container" style="padding: 10px;">
 
-<!-- Heading -->
 <h1 style="font-size: 30px;">Download <span class="movieTitle3"></span> Web-DL Dual Audio movie {<span class="movieLanguage"></span>-<span class="movieOtherLanguage"></span>} +EngSubtitle 480p [500MB] 720p [1.2 GB] 1080p [2.6GB]</h1>
 
 <p>✅ Download <span class="movieTitle3" id="movie-title" style="font-weight: bold; color: red;"></span> This is a <span class="movieType" style="font-weight: bold;"></span> and available in <span style="color: green; font-weight: bold;">1080p, 720p & 480p</span> Qualities For Your Mobile/tablet/Computer. This Movie is based on <span class="imdbGenre" style="font-weight: bold; color: #FFC500"></span>. This <span class="imdbType"></span> is available in HD Print So You can Click on the Download button below to download <span class="movieTitle"></span> <span class="movieYear"></span> HD Print Full Movie On Internet.</p>
 
 <p>If It Is A Anime, Series Or Something With Episodes Then The Links Will Not Have Anything Written But There Will Be All Episodes In Order.</p>
 
- 
+
 
 <script type="module" src="https://securepubads.shareus.io/scripts/tag/js/gpt.js" ></script>
  <script>
@@ -210,40 +202,35 @@
 <p> <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
 <span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
 <b>DOWNLOAD LINKS :-</b>
-</span></span> </p> 
+</span></span> </p>
 
 
-<!-- Download Options -->
 <div id="downloadOptions"></div>
 
-</div> <!-- Main-Container Close/Ends Here -->
-
-
-<!-- Footer -->
-  <footer>
+</div> <footer>
   <div class="footer" style="margin-top: 40px; border-radius: 20px 20px 0px 0px; box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 35px; box-sizing: border-box; padding:15px; position: relative; left:0; bottom:0; width:100%; text-align: center; background-color: #222; font-size: 14px;  color: #fff;">
     <div class="made-with-love" style="color: #ff9800; margin: 5px 0;">Made with ❤ by TechnicalBichu</div>
 
     <div class="social-links" style="
         margin-top: 10px; margin-bottom: 10px;">
         <a href="https://github.com/" target="_blank" style="
-            margin: 0 10px; 
-            color: #fff; 
-            text-decoration: none; 
+            margin: 0 10px;
+            color: #fff;
+            text-decoration: none;
             font-size: 16px;">
             <i class="fab fa-github"></i>
         </a>
         <a href="https://twitter.com/" target="_blank" style="
-            margin: 0 10px; 
-            color: #fff; 
-            text-decoration: none; 
+            margin: 0 10px;
+            color: #fff;
+            text-decoration: none;
             font-size: 16px;">
             <i class="fab fa-twitter"></i>
         </a>
         <a href="https://linkedin.com/" target="_blank" style="
-            margin: 0 10px; 
-            color: #fff; 
-            text-decoration: none; 
+            margin: 0 10px;
+            color: #fff;
+            text-decoration: none;
             font-size: 16px;">
             <i class="fab fa-linkedin"></i>
         </a>
@@ -279,7 +266,7 @@
         document.querySelectorAll('.movieYear').forEach(el => el.textContent = movieData.year);
         document.querySelectorAll('.moviePoster').forEach(el => {
             el.src = movieData.thumbnail || 'default-poster.jpg';
-        }); 
+        });
 
         // For series, show season and episode; otherwise, default to 'N/A'
         document.querySelectorAll('.movieSeason').forEach(el => el.textContent = movieData.qualities?.[0]?.season);
@@ -358,12 +345,28 @@
             downloadButton.style.display = 'block';
 
             downloadButton.addEventListener('click', () => {
-                const a = document.createElement('a');
-                a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
-                a.download = `${movieData.title3}_${quality.quality}.mp4`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+                // Show rewarded ad when download button is clicked
+                show_9386973('pop').then(() => {
+                    // user watched ad till the end or closed it in interstitial format
+                    // Your code to reward user (e.g., initiate download)
+                    const a = document.createElement('a');
+                    a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
+                    a.download = `${movieData.title3}_${quality.quality}.mp4`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }).catch(e => {
+                    // user got error during playing ad, or closed it early
+                    // You can choose to still initiate download or do nothing
+                    console.error("Ad display error or user closed ad early:", e);
+                    // For example, you might still want to allow download even if ad fails
+                    const a = document.createElement('a');
+                    a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
+                    a.download = `${movieData.title3}_${quality.quality}.mp4`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
             });
 
             // Append the text and button to the container
@@ -388,7 +391,6 @@
 </script>
 
 
-  <!-- Dark mode Toogle -->
   <script>
     // Toggle Dark/Light Mode
     function toggleMode() {
@@ -403,7 +405,9 @@
         modeButton.classList.replace('fa-sun', 'fa-moon'); // Moon icon for dark mode
       }
     }
-</script> 
+</script>
+
+<script src='//libtl.com/sdk.js' data-zone='9386973' data-sdk='show_9386973'></script>
 
 </body>
 </html>

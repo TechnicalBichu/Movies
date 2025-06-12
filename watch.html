@@ -7,29 +7,23 @@
 
 <link rel="stylesheet" href="https://cdn.plyr.io/3.6.12/plyr.css" />
 <script src="https://cdn.plyr.io/3.6.12/plyr.polyfilled.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> <style>
-/* General Body Styles */
+<style>
   body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     transition: background-color 0.3s, color 0.3s;
   }
-
-  /* Dark Mode Styling */
   body.dark-mode {
     background-color: #121212;
     color: #bbb;
   }
-
-  /* Light Mode Styling */
   body.light-mode {
     background-color: #ffffff;
     color: #121212;
   }
-
-  /* Header Styling */
   header {
     background-color: #222;
     padding: 10px 20px;
@@ -42,7 +36,6 @@
     top: 0;
     z-index: 100;
   }
-
   header a {
     font-size: 20px;
     margin: 0;
@@ -50,14 +43,11 @@
     color: white;
     text-decoration: none;
   }
-
   .headerIcon {
     display: flex;
-    gap: 10px; /* Adjust gap size as needed */
+    gap: 10px;
     align-items: center;
   }
-
-  /* Toggle and Search Button */
   .mode-toggle, .searchbtn {
     background-color: #444;
     border: none;
@@ -69,159 +59,129 @@
     cursor: pointer;
     transition: transform 0.2s ease-in-out, background-color 0.3s;
   }
-
   .mode-toggle:hover, .searchbtn:hover {
     transform: scale(1.1);
     background-color: #555;
   }
-
-  /* Movie thumbnail (not shown as we use poster image for video player) */
   .download-btn {
-    display: none;  /* Hide the thumbnail */
+    display: none;
   }
-
-  /* Container for the download buttons */
-#downloadOptions {
+  #downloadOptions {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
-}
-
-/* Download buttons style */
-#downloadOptions button {
-    background-color: #4caf50; /* Green background */
-    color: white; /* White text */
+  }
+  #downloadOptions button {
+    background-color: #4caf50;
+    color: white;
     border: none;
     padding: 10px 20px;
     font-size: 14px;
     font-weight: bold;
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     text-align: center;
     white-space: nowrap;
-}
-
-/* Hover effect for buttons */
-#downloadOptions button:hover {
-    background-color: #45a049; /* Darker green */
-    transform: scale(1.05); /* Slightly enlarge on hover */
-}
-
-/* Active effect when the button is clicked */
-#downloadOptions button:active {
-    background-color: #3e8e41; /* Even darker green */
-    transform: scale(0.98); /* Slightly shrink */
-}
-
-/* Style for different screen sizes */
-@media screen and (max-width: 600px) {
+  }
+  #downloadOptions button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+  #downloadOptions button:active {
+    background-color: #3e8e41;
+    transform: scale(0.98);
+  }
+  @media screen and (max-width: 600px) {
     #downloadOptions {
-        flex-direction: column; /* Stack buttons vertically on small screens */
-        align-items: flex-start;
+      flex-direction: column;
+      align-items: flex-start;
     }
     #downloadOptions button {
-        width: 100%; /* Full-width buttons */
+      width: 100%;
     }
-}
-
+  }
 </style>
-
 
 </head>
 
-  <body class="light-mode">
+<body class="light-mode">
 
-  <header>
+<header>
   <a href="/">Nexus Files</a>
   <div class="headerIcon">
-  <button class="searchbtn" onclick="window.location.href='src/template/search.html';">
-    <i class="fas fa-search"></i>
-  </button>
-
-  <button class="mode-toggle" onclick="toggleMode()">
-    <i class="fas fa-sun"></i>
-  </button>
+    <button class="searchbtn" onclick="window.location.href='src/template/search.html';">
+      <i class="fas fa-search"></i>
+    </button>
+    <button class="mode-toggle" onclick="toggleMode()">
+      <i class="fas fa-sun"></i>
+    </button>
   </div>
 </header>
 
 <div class="main-container" style="padding: 10px;">
+  <h1 style="font-size: 30px;">Download <span class="movieTitle3"></span> Web-DL Dual Audio movie {<span class="movieLanguage"></span>-<span class="movieOtherLanguage"></span>} +EngSubtitle 480p [500MB] 720p [1.2 GB] 1080p [2.6GB]</h1>
 
-<h1 style="font-size: 30px;">Download <span class="movieTitle3"></span> Web-DL Dual Audio movie {<span class="movieLanguage"></span>-<span class="movieOtherLanguage"></span>} +EngSubtitle 480p [500MB] 720p [1.2 GB] 1080p [2.6GB]</h1>
+  <p>✅ Download <span class="movieTitle3" id="movie-title" style="font-weight: bold; color: red;"></span> This is a <span class="movieType" style="font-weight: bold;"></span> and available in <span style="color: green; font-weight: bold;">1080p, 720p & 480p</span> Qualities For Your Mobile/tablet/Computer. This Movie is based on <span class="imdbGenre" style="font-weight: bold; color: #FFC500"></span>. This <span class="imdbType"></span> is available in HD Print So You can Click on the Download button below to download <span class="movieTitle"></span> <span class="movieYear"></span> HD Print Full Movie On Internet.</p>
+  <p>If It Is A Anime, Series Or Something With Episodes Then The Links Will Not Have Anything Written But There Will Be All Episodes In Order.</p>
 
-<p>✅ Download <span class="movieTitle3" id="movie-title" style="font-weight: bold; color: red;"></span> This is a <span class="movieType" style="font-weight: bold;"></span> and available in <span style="color: green; font-weight: bold;">1080p, 720p & 480p</span> Qualities For Your Mobile/tablet/Computer. This Movie is based on <span class="imdbGenre" style="font-weight: bold; color: #FFC500"></span>. This <span class="imdbType"></span> is available in HD Print So You can Click on the Download button below to download <span class="movieTitle"></span> <span class="movieYear"></span> HD Print Full Movie On Internet.</p>
+  <div class="container2" style="display: flex; flex-direction: column;">
+    <div class="posterContainer" style="margin-right: 20px; background-color: #000; padding: 20px; border-radius: 10px 10px 0px 0px; margin-right: 0; margin-bottom: 0;">
+      <img class="imdbPoster" alt="Movie Poster" style="max-width: 300px; height: auto; display: block; margin: 0 auto; border-radius:10px;">
+    </div>
+    <div class="detailsContainer" style="margin-right: 20px; background-color: #000; padding: 20px; color: #fff; border-radius: 0px 0px 10px 10px; margin-right: 0; margin-bottom: 0;">
+      <div style="color: #C1C1C1;"><h2 style=" color: #C1C1C1; font-size: 24px; margin-top: 0;"><span class="movieTitle"></span> (<span class="movieYear"></span>)</h2></div>
+      <p style="color: #fff; margin: 0;"><span class="imdbRuntime"></span> | <span class="imdbGenre"></span> | <span class="imdbRelease"></span> | (<span class="imdbCountry"></span>)</p><br>
+      <p style="margin: 0;"><strong style="color: #fff;">Rating:</strong> <span style="color: #C1C1C1; font-weight: bold;"> <span class="imdbRating"></span> </span> <span style="color: #fff;">/10</span> <span style="color: #888888;">from <span class="imdbVotes"></span> users</span></p><br>
+      <p style="margin: 0;"><strong style="color: #fff;">Director:</strong> <span style="color: #C1C1C1;"> <span class="imdbDirector"></span> </span></p>
+      <p style="margin: 0;"><strong style="color: #fff;">Writer:</strong> <span style="color: #C1C1C1;"> <span class="imdbWriter"></span> </span></p>
+      <p style="margin: 0;"><strong style="color: #fff;">Stars:</strong> <span style="color: #C1C1C1;"> <span class="imdbActors"></span> </span></p>
+    </div>
+  </div>
 
-<p>If It Is A Anime, Series Or Something With Episodes Then The Links Will Not Have Anything Written But There Will Be All Episodes In Order.</p>
+  <p>
+    <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
+      <span class="quality" style="background: rgb(249, 163, 2); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
+        <strong>STORYLINE :-</strong>
+      </span>
+    </span>
+  </p>
+  <p><span class="imdbPlot"></span></p>
+  <p>
+    <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
+      <span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
+        <strong>SCREENSHOTS :-</strong>
+      </span>
+    </span>
+  </p>
+  <p>
+    <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
+      <span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
+        <b>DOWNLOAD LINKS :-</b>
+      </span>
+    </span>
+  </p>
 
+  <div id="downloadOptions"></div>
+</div>
 
-<div class="container2" style="display: flex; flex-direction: column;">
-<div class="posterContainer" style="margin-right: 20px; background-color: #000; padding: 20px; border-radius: 10px 10px 0px 0px; margin-right: 0; margin-bottom: 0;">
-
-<img class="imdbPoster" alt="Movie Poster" style="max-width: 300px; height: auto; display: block; margin: 0 auto; border-radius:10px;">
-</div><div class="detailsContainer" style="margin-right: 20px; background-color: #000; padding: 20px; color: #fff; border-radius: 0px 0px 10px 10px; margin-right: 0; margin-bottom: 0;">
-<div style="color: #C1C1C1;"><h2 style=" color: #C1C1C1; font-size: 24px; margin-top: 0;"><span class="movieTitle"></span> (<span class="movieYear"></span>)</h2></div>
-<p style="color: #fff; margin: 0;"><span class="imdbRuntime"></span> | <span class="imdbGenre"></span> | <span class="imdbRelease"></span> | (<span class="imdbCountry"></span>)</p><br>
-<p style="margin: 0;"><strong style="color: #fff;">Rating:</strong> <span style="color: #C1C1C1; font-weight: bold;"> <span class="imdbRating"></span> </span> <span style="color: #fff;">/10</span> <span style="color: #888888;">from <span class="imdbVotes"></span> users</span></p><br>
-<p style="margin: 0;"><strong style="color: #fff;">Director:</strong> <span style="color: #C1C1C1;"> <span class="imdbDirector"></span> </span></p><p style="margin: 0;"><strong style="color: #fff;">Writer:</strong> <span style="color: #C1C1C1;"> <span class="imdbWriter"></span> </span></p>
-<p style="margin: 0;"><strong style="color: #fff;">Stars:</strong> <span style="color: #C1C1C1;"> <span class="imdbActors"></span> </span></p>
-</div></div>
-
-
-<p> <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
-    <span class="quality" style="background: rgb(249, 163, 2); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
-<strong>STORYLINE :-</strong>
-</span></span> </p>
-<p><span class="imdbPlot"></span></p>
-
-<p> <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
-<span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
-<strong>SCREENSHOTS :-</strong>
-</span></span> </p>
-
-<p> <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
-<span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
-<b>DOWNLOAD LINKS :-</b>
-</span></span> </p>
-
-
-<div id="downloadOptions"></div>
-
-</div> <footer>
+<footer>
   <div class="footer" style="margin-top: 40px; border-radius: 20px 20px 0px 0px; box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 35px; box-sizing: border-box; padding:15px; position: relative; left:0; bottom:0; width:100%; text-align: center; background-color: #222; font-size: 14px;  color: #fff;">
     <div class="made-with-love" style="color: #ff9800; margin: 5px 0;">Made with ❤ by TechnicalBichu</div>
-
-    <div class="social-links" style="
-        margin-top: 10px; margin-bottom: 10px;">
-        <a href="https://github.com/" target="_blank" style="
-            margin: 0 10px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;">
-            <i class="fab fa-github"></i>
-        </a>
-        <a href="https://twitter.com/" target="_blank" style="
-            margin: 0 10px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;">
-            <i class="fab fa-twitter"></i>
-        </a>
-        <a href="https://linkedin.com/" target="_blank" style="
-            margin: 0 10px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;">
-            <i class="fab fa-linkedin"></i>
-        </a>
+    <div class="social-links" style="margin-top: 10px; margin-bottom: 10px;">
+      <a href="https://github.com/" target="_blank" style="margin: 0 10px; color: #fff; text-decoration: none; font-size: 16px;">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://twitter.com/" target="_blank" style="margin: 0 10px; color: #fff; text-decoration: none; font-size: 16px;">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://linkedin.com/" target="_blank" style="margin: 0 10px; color: #fff; text-decoration: none; font-size: 16px;">
+        <i class="fab fa-linkedin"></i>
+      </a>
     </div>
-
     <div>
-      © <span id='getYear'>
-      <script>
-
-      /*<![CDATA[*/ var d = new Date(); var n = d.getFullYear(); document.getElementById('getYear').innerHTML = n; /*]]>*/
-      </script></span> ‧
+      © <span id='getYear'></span> ‧
       <bdi>
         <a href='https://t.me/TechnicalBichu' style="color:red; text-decoration: none;">TechnicalBichu</a>
       </bdi>‧ All rights reserved.
@@ -230,164 +190,121 @@
 </footer>
 
 <script>
-    // Extract title from the URL query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const title2 = decodeURIComponent(urlParams.get('title'));
+  // YEAR IN FOOTER
+  document.getElementById('getYear').textContent = new Date().getFullYear();
 
-    // Fetch the movie data stored in localStorage
-    const movieData = JSON.parse(localStorage.getItem('movieData'));
-
-    // Check if movie data is available and matches the requested title
-    if (movieData && movieData.title === title2) {
-        // Populate movie details
-        document.querySelectorAll('.movieTitle').forEach(el => el.textContent = movieData.title);
-        document.querySelectorAll('.movieTitle3').forEach(el => el.textContent = movieData.title3);
-        document.querySelectorAll('.movieType').forEach(el => el.textContent = movieData.type);
-        document.querySelectorAll('.movieYear').forEach(el => el.textContent = movieData.year);
-        document.querySelectorAll('.moviePoster').forEach(el => {
-            el.src = movieData.thumbnail || 'default-poster.jpg';
-        });
-
-        // For series, show season and episode; otherwise, default to 'N/A'
-        document.querySelectorAll('.movieSeason').forEach(el => el.textContent = movieData.qualities?.[0]?.season);
-        document.querySelectorAll('.movieEpisode').forEach(el => el.textContent = movieData.qualities?.[0]?.episode);
-
-        // Populate language and other languages from the first quality
-        document.querySelectorAll('.movieLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.language);
-        document.querySelectorAll('.movieOtherLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.otherLanguage);
-
-        // Populate IMDb data
-        if (movieData.imdbData) {
-            document.querySelectorAll('.imdbRuntime').forEach(el => el.textContent = movieData.imdbData.runtime);
-            document.querySelectorAll('.imdbRating').forEach(el => el.textContent = movieData.imdbData.imdbRating);
-            document.querySelectorAll('.imdbVotes').forEach(el => el.textContent = movieData.imdbData.imdbVotes);
-            document.querySelectorAll('.imdbGenre').forEach(el => el.textContent = movieData.imdbData.Genre);
-            document.querySelectorAll('.imdbPlot').forEach(el => el.textContent = movieData.imdbData.plot);
-            document.querySelectorAll('.imdbPoster').forEach(el => {
-                el.src = movieData.imdbData.poster || movieData.thumbnail;
-            });
-            document.querySelectorAll('.imdbCountry').forEach(el => el.textContent = movieData.imdbData.country);
-            document.querySelectorAll('.imdbDirector').forEach(el => el.textContent = movieData.imdbData.director);
-            document.querySelectorAll('.imdbWriter').forEach(el => el.textContent = movieData.imdbData.writer);
-            document.querySelectorAll('.imdbActors').forEach(el => el.textContent = movieData.imdbData.actors);
-            document.querySelectorAll('.imdbType').forEach(el => el.textContent = movieData.imdbData.Type);
-            document.querySelectorAll('.imdbSeasons').forEach(el => el.textContent = movieData.imdbData.totalSeasons);
-            document.querySelectorAll('.imdbRelease').forEach(el => el.textContent = movieData.imdbData.releaseDate);
-        }
-
-        // Populate download buttons
-        const downloadOptionsContainer = document.getElementById('downloadOptions');
-        movieData.qualities.forEach((quality) => {
-            // Check if the movie is a series and has season/episode details
-            let extraInfo = '';
-            if (movieData.type && movieData.type === 'series') {
-                const season = quality.season || 'S?'; // Default to S? if not available
-                const episode = quality.episode || 'E?'; // Default to E? if not available
-                extraInfo = ` - Season ${season}, Episode ${episode}`;
-            }
-
-            // Create a container for the button and its text
-            const buttonContainer = document.createElement('div');
-            buttonContainer.style.marginBottom = '10px'; // Add some spacing between buttons
-
-            // Create a text element for the button description
-            const buttonText = document.createElement('p');
-            buttonText.style.marginBottom = '10px';
-            buttonText.style.fontSize = '14px';
-            buttonText.style.color = '#f8';
-
-            // Create spans for language and otherLanguage with orange color
-            const languageSpan = document.createElement('span');
-            languageSpan.textContent = `${quality.language}`;
-            languageSpan.style.color = 'orange';
-
-            const otherLanguageSpan = document.createElement('span');
-            otherLanguageSpan.textContent = ` ${quality.otherLanguage}`;
-            otherLanguageSpan.style.color = 'orange';
-
-            // Create the size span with white color
-            const sizeSpan = document.createElement('span');
-            sizeSpan.textContent = `[${quality.fileSize}]`;
-            sizeSpan.style.color = '#fff';
-
-            // Set the rest of the text for the button (title and quality)
-            buttonText.textContent = `Download ${movieData.title3} {`;
-            buttonText.appendChild(languageSpan);
-            buttonText.appendChild(otherLanguageSpan);
-            buttonText.textContent += `} ${quality.quality} `;
-
-            // Append the size span
-            buttonText.appendChild(sizeSpan);
-
-            // Create the button for downloading
-            const downloadButton = document.createElement('button');
-            downloadButton.textContent = `Download Now`;
-            downloadButton.style.display = 'block';
-
-            downloadButton.addEventListener('click', () => {
-                // Show rewarded ad when download button is clicked
-                show_9386973('pop').then(() => {
-                    // user watched ad till the end or closed it in interstitial format
-                    // Your code to reward user (e.g., initiate download)
-                    const a = document.createElement('a');
-                    a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
-                    a.download = `${movieData.title3}_${quality.quality}.mp4`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }).catch(e => {
-                    // user got error during playing ad, or closed it early
-                    // You can choose to still initiate download or do nothing
-                    console.error("Ad display error or user closed ad early:", e);
-                    // For example, you might still want to allow download even if ad fails
-                    const a = document.createElement('a');
-                    a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
-                    a.download = `${movieData.title3}_${quality.quality}.mp4`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                });
-            });
-
-            // Append the text and button to the container
-            buttonContainer.appendChild(buttonText);
-            buttonContainer.appendChild(downloadButton);
-
-            // >>> ADDITION FOR TITLE BELOW BUTTON <<<
-            if (quality.title) {
-                const titleText = document.createElement('p');
-                titleText.textContent = quality.title;
-                titleText.style.marginTop = '5px';
-                titleText.style.fontSize = '13px';
-                titleText.style.color = '#fff';
-                buttonContainer.appendChild(titleText);
-            }
-            // >>> END ADDITION <<<
-
-            // Append the container to the download options container
-            downloadOptionsContainer.appendChild(buttonContainer);
-        });
+  // DARK/LIGHT MODE TOGGLE
+  function toggleMode() {
+    const body = document.body;
+    const modeButton = document.querySelector('.mode-toggle i');
+    if (body.classList.contains('dark-mode')) {
+      body.classList.replace('dark-mode', 'light-mode');
+      modeButton.classList.replace('fa-moon', 'fa-sun');
+    } else {
+      body.classList.replace('light-mode', 'dark-mode');
+      modeButton.classList.replace('fa-sun', 'fa-moon');
     }
-</script>
+  }
 
+  // MAIN SCRIPT FOR MOVIE DATA AND DOWNLOAD BUTTONS
+  const urlParams = new URLSearchParams(window.location.search);
+  const title2 = decodeURIComponent(urlParams.get('title'));
+  const movieData = JSON.parse(localStorage.getItem('movieData'));
 
-  <script>
-    // Toggle Dark/Light Mode
-    function toggleMode() {
-      const body = document.body;
-      const modeButton = document.querySelector('.mode-toggle i');
+  if (movieData && movieData.title === title2) {
+    document.querySelectorAll('.movieTitle').forEach(el => el.textContent = movieData.title);
+    document.querySelectorAll('.movieTitle3').forEach(el => el.textContent = movieData.title3);
+    document.querySelectorAll('.movieType').forEach(el => el.textContent = movieData.type);
+    document.querySelectorAll('.movieYear').forEach(el => el.textContent = movieData.year);
+    document.querySelectorAll('.moviePoster').forEach(el => {
+      el.src = movieData.thumbnail || 'default-poster.jpg';
+    });
+    document.querySelectorAll('.movieSeason').forEach(el => el.textContent = movieData.qualities?.[0]?.season);
+    document.querySelectorAll('.movieEpisode').forEach(el => el.textContent = movieData.qualities?.[0]?.episode);
+    document.querySelectorAll('.movieLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.language);
+    document.querySelectorAll('.movieOtherLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.otherLanguage);
 
-      if (body.classList.contains('dark-mode')) {
-        body.classList.replace('dark-mode', 'light-mode');
-        modeButton.classList.replace('fa-moon', 'fa-sun'); // Sun icon for light mode
-      } else {
-        body.classList.replace('light-mode', 'dark-mode');
-        modeButton.classList.replace('fa-sun', 'fa-moon'); // Moon icon for dark mode
+    if (movieData.imdbData) {
+      document.querySelectorAll('.imdbRuntime').forEach(el => el.textContent = movieData.imdbData.runtime);
+      document.querySelectorAll('.imdbRating').forEach(el => el.textContent = movieData.imdbData.imdbRating);
+      document.querySelectorAll('.imdbVotes').forEach(el => el.textContent = movieData.imdbData.imdbVotes);
+      document.querySelectorAll('.imdbGenre').forEach(el => el.textContent = movieData.imdbData.Genre);
+      document.querySelectorAll('.imdbPlot').forEach(el => el.textContent = movieData.imdbData.plot);
+      document.querySelectorAll('.imdbPoster').forEach(el => {
+        el.src = movieData.imdbData.poster || movieData.thumbnail;
+      });
+      document.querySelectorAll('.imdbCountry').forEach(el => el.textContent = movieData.imdbData.country);
+      document.querySelectorAll('.imdbDirector').forEach(el => el.textContent = movieData.imdbData.director);
+      document.querySelectorAll('.imdbWriter').forEach(el => el.textContent = movieData.imdbData.writer);
+      document.querySelectorAll('.imdbActors').forEach(el => el.textContent = movieData.imdbData.actors);
+      document.querySelectorAll('.imdbType').forEach(el => el.textContent = movieData.imdbData.Type);
+      document.querySelectorAll('.imdbSeasons').forEach(el => el.textContent = movieData.imdbData.totalSeasons);
+      document.querySelectorAll('.imdbRelease').forEach(el => el.textContent = movieData.imdbData.releaseDate);
+    }
+
+    const downloadOptionsContainer = document.getElementById('downloadOptions');
+    movieData.qualities.forEach((quality) => {
+      let extraInfo = '';
+      if (movieData.type && movieData.type === 'series') {
+        const season = quality.season || 'S?';
+        const episode = quality.episode || 'E?';
+        extraInfo = ` - Season ${season}, Episode ${episode}`;
       }
-    }
-</script>
+      const buttonContainer = document.createElement('div');
+      buttonContainer.style.marginBottom = '10px';
 
-<script src='//libtl.com/sdk.js' data-zone='9386973' data-sdk='show_9386973'></script>
+      const buttonText = document.createElement('p');
+      buttonText.style.marginBottom = '10px';
+      buttonText.style.fontSize = '14px';
+      buttonText.style.color = '#f8';
+
+      const languageSpan = document.createElement('span');
+      languageSpan.textContent = `${quality.language}`;
+      languageSpan.style.color = 'orange';
+
+      const otherLanguageSpan = document.createElement('span');
+      otherLanguageSpan.textContent = ` ${quality.otherLanguage}`;
+      otherLanguageSpan.style.color = 'orange';
+
+      const sizeSpan = document.createElement('span');
+      sizeSpan.textContent = `[${quality.fileSize}]`;
+      sizeSpan.style.color = '#fff';
+
+      buttonText.textContent = `Download ${movieData.title3} {`;
+      buttonText.appendChild(languageSpan);
+      buttonText.appendChild(otherLanguageSpan);
+      buttonText.textContent += `} ${quality.quality} `;
+      buttonText.appendChild(sizeSpan);
+
+      const downloadButton = document.createElement('button');
+      downloadButton.textContent = `Download Now`;
+      downloadButton.style.display = 'block';
+
+      downloadButton.addEventListener('click', () => {
+        const a = document.createElement('a');
+        a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
+        a.download = `${movieData.title3}_${quality.quality}.mp4`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+
+      buttonContainer.appendChild(buttonText);
+      buttonContainer.appendChild(downloadButton);
+
+      if (quality.title) {
+        const titleText = document.createElement('p');
+        titleText.textContent = quality.title;
+        titleText.style.marginTop = '5px';
+        titleText.style.fontSize = '13px';
+        titleText.style.color = '#fff';
+        buttonContainer.appendChild(titleText);
+      }
+
+      downloadOptionsContainer.appendChild(buttonContainer);
+    });
+  }
+</script>
 
 </body>
 </html>

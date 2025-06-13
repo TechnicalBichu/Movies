@@ -270,7 +270,7 @@
       sizeSpan.textContent = `[${quality.fileSize}]`;
       sizeSpan.style.color = '#fff';
 
-      buttonText.textContent = `Download ${movieData.title3} {`;
+      buttonText.textContent = `Download ${movieData.Title3} {`;
       buttonText.appendChild(languageSpan);
       buttonText.appendChild(otherLanguageSpan);
       buttonText.textContent += `} ${quality.quality} `;
@@ -283,7 +283,7 @@
       downloadButton.addEventListener('click', () => {
         const a = document.createElement('a');
         a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
-        a.download = `${movieData.title3}_${quality.quality}.mp4`;
+        a.download = `${movieData.Title3}_${quality.quality}.mp4`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

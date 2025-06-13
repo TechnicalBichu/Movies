@@ -71,35 +71,58 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
+    flex-direction: column;
   }
-  #downloadOptions button {
-    background-color: #4caf50;
-    color: white;
+  .quality-block {
+    background: #191919;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .quality-img {
+    max-width: 120px;
+    border-radius: 6px;
+    background: #111;
+  }
+  .quality-info {
+    flex: 1;
+    min-width: 180px;
+  }
+  .download-link {
+    font-size: 12px;
+    color: #ffa500;
+    margin-bottom: 8px;
+    word-break: break-all;
+  }
+  .download-btn {
+    padding: 9px 24px;
+    background: #35b535;
+    color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: bold;
     border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    text-align: center;
-    white-space: nowrap;
+    margin-top: 8px;
+    margin-bottom: 4px;
   }
-  #downloadOptions button:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
+  .download-btn:hover {
+    background: #219421;
   }
-  #downloadOptions button:active {
-    background-color: #3e8e41;
-    transform: scale(0.98);
-  }
-  @media screen and (max-width: 600px) {
+  @media (max-width: 600px) {
     #downloadOptions {
       flex-direction: column;
       align-items: flex-start;
     }
-    #downloadOptions button {
-      width: 100%;
+    .quality-block {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .quality-img {
+      max-width: 100%;
     }
   }
 </style>
@@ -121,48 +144,17 @@
 </header>
 
 <div class="main-container" style="padding: 10px;">
-  <h1 style="font-size: 30px;">Download <span class="movieTitle3"></span> Web-DL Dual Audio movie {<span class="movieLanguage"></span>-<span class="movieOtherLanguage"></span>} +EngSubtitle 480p [500MB] 720p [1.2 GB] 1080p [2.6GB]</h1>
-
-  <p>✅ Download <span class="movieTitle3" id="movie-title" style="font-weight: bold; color: red;"></span> This is a <span class="movieType" style="font-weight: bold;"></span> and available in <span style="color: green; font-weight: bold;">1080p, 720p & 480p</span> Qualities For Your Mobile/tablet/Computer. This Movie is based on <span class="imdbGenre" style="font-weight: bold; color: #FFC500"></span>. This <span class="imdbType"></span> is available in HD Print So You can Click on the Download button below to download <span class="movieTitle"></span> <span class="movieYear"></span> HD Print Full Movie On Internet.</p>
-  <p>If It Is A Anime, Series Or Something With Episodes Then The Links Will Not Have Anything Written But There Will Be All Episodes In Order.</p>
-
+  <div id="movieImages"></div>
   <div class="container2" style="display: flex; flex-direction: column;">
-    <div class="posterContainer" style="margin-right: 20px; background-color: #000; padding: 20px; border-radius: 10px 10px 0px 0px; margin-right: 0; margin-bottom: 0;">
-      <img class="imdbPoster" alt="Movie Poster" style="max-width: 300px; height: auto; display: block; margin: 0 auto; border-radius:10px;">
+    <div id="posterDetails" style="margin-right: 20px; background-color: #000; padding: 20px; border-radius: 10px 10px 0px 0px; margin-right: 0; margin-bottom: 0;">
+      <!-- Images and details will be injected here -->
     </div>
-    <div class="detailsContainer" style="margin-right: 20px; background-color: #000; padding: 20px; color: #fff; border-radius: 0px 0px 10px 10px; margin-right: 0; margin-bottom: 0;">
-      <div style="color: #C1C1C1;"><h2 style=" color: #C1C1C1; font-size: 24px; margin-top: 0;"><span class="movieTitle"></span> (<span class="movieYear"></span>)</h2></div>
-      <p style="color: #fff; margin: 0;"><span class="imdbRuntime"></span> | <span class="imdbGenre"></span> | <span class="imdbRelease"></span> | (<span class="imdbCountry"></span>)</p><br>
-      <p style="margin: 0;"><strong style="color: #fff;">Rating:</strong> <span style="color: #C1C1C1; font-weight: bold;"> <span class="imdbRating"></span> </span> <span style="color: #fff;">/10</span> <span style="color: #888888;">from <span class="imdbVotes"></span> users</span></p><br>
-      <p style="margin: 0;"><strong style="color: #fff;">Director:</strong> <span style="color: #C1C1C1;"> <span class="imdbDirector"></span> </span></p>
-      <p style="margin: 0;"><strong style="color: #fff;">Writer:</strong> <span style="color: #C1C1C1;"> <span class="imdbWriter"></span> </span></p>
-      <p style="margin: 0;"><strong style="color: #fff;">Stars:</strong> <span style="color: #C1C1C1;"> <span class="imdbActors"></span> </span></p>
+    <div id="movieInfo" class="detailsContainer" style="margin-right: 20px; background-color: #000; padding: 20px; color: #fff; border-radius: 0px 0px 10px 10px; margin-right: 0; margin-bottom: 0;">
+      <!-- IMDb data will be injected here -->
     </div>
   </div>
-
-  <p>
-    <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
-      <span class="quality" style="background: rgb(249, 163, 2); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
-        <strong>STORYLINE :-</strong>
-      </span>
-    </span>
-  </p>
-  <p><span class="imdbPlot"></span></p>
-  <p>
-    <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
-      <span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
-        <strong>SCREENSHOTS :-</strong>
-      </span>
-    </span>
-  </p>
-  <p>
-    <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
-      <span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
-        <b>DOWNLOAD LINKS :-</b>
-      </span>
-    </span>
-  </p>
-
+  <div id="movieStoryline"></div>
+  <div id="movieScreenshots"></div>
   <div id="downloadOptions"></div>
 </div>
 
@@ -206,106 +198,112 @@
     }
   }
 
-  // MAIN SCRIPT FOR MOVIE DATA AND DOWNLOAD BUTTONS
-  const urlParams = new URLSearchParams(window.location.search);
-  const title2 = decodeURIComponent(urlParams.get('title'));
-  const movieData = JSON.parse(localStorage.getItem('movieData'));
+  // --------- MAIN SCRIPT USING API ---------
+  async function loadMovie() {
+    const apiUrl = "https://mymoviesclan-demo-api.vercel.app/api/files";
+    const urlParams = new URLSearchParams(window.location.search);
+    const title2 = decodeURIComponent(urlParams.get('title') || '');
 
-  if (movieData && movieData.title === title2) {
-    document.querySelectorAll('.movieTitle').forEach(el => el.textContent = movieData.title);
-    document.querySelectorAll('.movieTitle3').forEach(el => el.textContent = movieData.title3);
-    document.querySelectorAll('.movieType').forEach(el => el.textContent = movieData.type);
-    document.querySelectorAll('.movieYear').forEach(el => el.textContent = movieData.year);
-    document.querySelectorAll('.moviePoster').forEach(el => {
-      el.src = movieData.thumbnail || 'default-poster.jpg';
-    });
-    document.querySelectorAll('.movieSeason').forEach(el => el.textContent = movieData.qualities?.[0]?.season);
-    document.querySelectorAll('.movieEpisode').forEach(el => el.textContent = movieData.qualities?.[0]?.episode);
-    document.querySelectorAll('.movieLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.language);
-    document.querySelectorAll('.movieOtherLanguage').forEach(el => el.textContent = movieData.qualities?.[0]?.otherLanguage);
+    // Fetch API data
+    const res = await fetch(apiUrl);
+    const data = await res.json();
 
-    if (movieData.imdbData) {
-      document.querySelectorAll('.imdbRuntime').forEach(el => el.textContent = movieData.imdbData.runtime);
-      document.querySelectorAll('.imdbRating').forEach(el => el.textContent = movieData.imdbData.imdbRating);
-      document.querySelectorAll('.imdbVotes').forEach(el => el.textContent = movieData.imdbData.imdbVotes);
-      document.querySelectorAll('.imdbGenre').forEach(el => el.textContent = movieData.imdbData.Genre);
-      document.querySelectorAll('.imdbPlot').forEach(el => el.textContent = movieData.imdbData.plot);
-      document.querySelectorAll('.imdbPoster').forEach(el => {
-        el.src = movieData.imdbData.poster || movieData.thumbnail;
-      });
-      document.querySelectorAll('.imdbCountry').forEach(el => el.textContent = movieData.imdbData.country);
-      document.querySelectorAll('.imdbDirector').forEach(el => el.textContent = movieData.imdbData.director);
-      document.querySelectorAll('.imdbWriter').forEach(el => el.textContent = movieData.imdbData.writer);
-      document.querySelectorAll('.imdbActors').forEach(el => el.textContent = movieData.imdbData.actors);
-      document.querySelectorAll('.imdbType').forEach(el => el.textContent = movieData.imdbData.Type);
-      document.querySelectorAll('.imdbSeasons').forEach(el => el.textContent = movieData.imdbData.totalSeasons);
-      document.querySelectorAll('.imdbRelease').forEach(el => el.textContent = movieData.imdbData.releaseDate);
+    // Find movie by title (case-insensitive, supports both 'title', 'Title2', 'Title3')
+    const movie = Array.isArray(data.results)
+      ? data.results.find(m =>
+          [m.title, m.Title2, m.Title3].some(t => t && t.toLowerCase() === title2.toLowerCase())
+        )
+      : data.results;
+
+    if (!movie) {
+      document.getElementById('movieInfo').innerHTML = "<b>Movie not found.</b>";
+      return;
     }
 
-    const downloadOptionsContainer = document.getElementById('downloadOptions');
-    movieData.qualities.forEach((quality) => {
-      let extraInfo = '';
-      if (movieData.type && movieData.type === 'series') {
-        const season = quality.season || 'S?';
-        const episode = quality.episode || 'E?';
-        extraInfo = ` - Season ${season}, Episode ${episode}`;
-      }
-      const buttonContainer = document.createElement('div');
-      buttonContainer.style.marginBottom = '10px';
-
-      const buttonText = document.createElement('p');
-      buttonText.style.marginBottom = '10px';
-      buttonText.style.fontSize = '14px';
-      buttonText.style.color = '#f8';
-
-      const languageSpan = document.createElement('span');
-      languageSpan.textContent = `${quality.language}`;
-      languageSpan.style.color = 'orange';
-
-      const otherLanguageSpan = document.createElement('span');
-      otherLanguageSpan.textContent = ` ${quality.otherLanguage}`;
-      otherLanguageSpan.style.color = 'orange';
-
-      const sizeSpan = document.createElement('span');
-      sizeSpan.textContent = `[${quality.fileSize}]`;
-      sizeSpan.style.color = '#fff';
-
-      buttonText.textContent = `Download ${movieData.Title3} {`;
-      buttonText.appendChild(languageSpan);
-      buttonText.appendChild(otherLanguageSpan);
-      buttonText.textContent += `} ${quality.quality} `;
-      buttonText.appendChild(sizeSpan);
-
-      const downloadButton = document.createElement('button');
-      downloadButton.textContent = `Download Now`;
-      downloadButton.style.display = 'block';
-
-      downloadButton.addEventListener('click', () => {
-        const a = document.createElement('a');
-        a.href = 'https://thecuriousrealm.blogspot.com/p/nexus-files-download-link.html?TechnicalBichu=' + encodeURIComponent(quality.streamUrl);
-        a.download = `${movieData.Title3}_${quality.quality}.mp4`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+    // 1. IMAGES
+    let imagesHTML = `<div class="images" style="display:flex;gap:20px;margin-bottom:20px;flex-wrap:wrap;">`;
+    // Poster from imdbData
+    if (movie.imdbData?.poster)
+      imagesHTML += `<img src="${movie.imdbData.poster}" alt="IMDB Poster" style="max-width:200px;border-radius:8px;background:#111;">`;
+    // Thumbnails from all qualities
+    if (Array.isArray(movie.sources)) {
+      movie.sources.forEach(q => {
+        if (q.thumbnail) {
+          imagesHTML += `<img src="${q.thumbnail}" alt="Thumbnail" style="max-width:120px;border-radius:8px;background:#111;">`;
+        }
       });
+    }
+    imagesHTML += `</div>`;
+    document.getElementById('movieImages').innerHTML = imagesHTML;
 
-      buttonContainer.appendChild(buttonText);
-      buttonContainer.appendChild(downloadButton);
+    // 2. IMDb DATA (in details area)
+    let imdb = movie.imdbData || {};
+    document.getElementById('posterDetails').innerHTML =
+      `<h1 style="font-size: 30px;">Download ${movie.Title3 || imdb.title || movie.Title2 || movie.title || ''} Web-DL Dual Audio movie {${movie.sources?.[0]?.language || 'Unknown'}-${movie.sources?.[0]?.secondaryLanguages || ''}} +EngSubtitle 480p [500MB] 720p [1.2 GB] 1080p [2.6GB]</h1>`;
 
-      if (quality.title) {
-        const titleText = document.createElement('p');
-        titleText.textContent = quality.title;
-        titleText.style.marginTop = '5px';
-        titleText.style.fontSize = '13px';
-        titleText.style.color = '#fff';
-        buttonContainer.appendChild(titleText);
-      }
+    document.getElementById('movieInfo').innerHTML =
+      `<div style="color: #C1C1C1;"><h2 style=" color: #C1C1C1; font-size: 24px; margin-top: 0;">${movie.Title3 || imdb.title || movie.Title2 || movie.title || ''} (${imdb.year || movie.year || ''})</h2></div>
+      <p style="color: #fff; margin: 0;">${imdb.runtime || ''} | ${imdb.Genre || ''} | ${imdb.releaseDate || ''} | (${imdb.country || ''})</p><br>
+      <p style="margin: 0;"><strong style="color: #fff;">Rating:</strong> <span style="color: #C1C1C1; font-weight: bold;"> ${imdb.imdbRating || ''} </span> <span style="color: #fff;">/10</span> <span style="color: #888888;">from ${imdb.imdbVotes || ''} users</span></p><br>
+      <p style="margin: 0;"><strong style="color: #fff;">Director:</strong> <span style="color: #C1C1C1;"> ${imdb.director || ''} </span></p>
+      <p style="margin: 0;"><strong style="color: #fff;">Writer:</strong> <span style="color: #C1C1C1;"> ${imdb.writer || ''} </span></p>
+      <p style="margin: 0;"><strong style="color: #fff;">Stars:</strong> <span style="color: #C1C1C1;"> ${imdb.actors || ''} </span></p>`;
 
-      downloadOptionsContainer.appendChild(buttonContainer);
-    });
+    // Storyline
+    document.getElementById('movieStoryline').innerHTML = `
+      <p>
+        <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
+          <span class="quality" style="background: rgb(249, 163, 2); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
+            <strong>STORYLINE :-</strong>
+          </span>
+        </span>
+      </p>
+      <p>${imdb.plot || ''}</p>
+    `;
+
+    // Screenshots (reuse images for now)
+    document.getElementById('movieScreenshots').innerHTML = `
+      <p>
+        <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
+          <span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
+            <strong>SCREENSHOTS :-</strong>
+          </span>
+        </span>
+      </p>
+    `;
+
+    // 3. QUALITIES
+    let qualitiesHTML = `<p>
+      <span style="background: 0px 0px; color: teal; font-family: arial; font-size: 16px;">
+        <span class="quality" style="background: rgb(34, 34, 34); border-radius: 3px; color: white; display: inline-block; margin-left: 2px; padding: 2px 5px; text-transform: uppercase;">
+          <b>DOWNLOAD LINKS :-</b>
+        </span>
+      </span>
+    </p>`;
+
+    if (Array.isArray(movie.sources)) {
+      movie.sources.forEach(q => {
+        // Remove domain from download link
+        let shortLink = q.downloadLink?.replace(/^https:\/\/watchoflix\.koyeb\.app/, "") || "";
+        qualitiesHTML += `
+          <div class="quality-block">
+            ${q.thumbnail ? `<img class="quality-img" src="${q.thumbnail}" alt="Quality Thumbnail">` : ""}
+            <div class="quality-info">
+              <div class="download-link">${shortLink}</div>
+              <div><b>Quality:</b> ${q.quality || ""}</div>
+              <div><b>File Size:</b> ${q.fileSize || ""}</div>
+              <button class="download-btn" onclick="window.open('${q.downloadLink}','_blank')">Download</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+    document.getElementById('downloadOptions').innerHTML = qualitiesHTML;
   }
-</script>
 
-  <script src="auth.js"></script>
+  // Load movie data after DOM is ready
+  document.addEventListener("DOMContentLoaded", loadMovie);
+</script>
+<script src="auth.js"></script>
 </body>
 </html>

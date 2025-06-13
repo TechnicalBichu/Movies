@@ -170,12 +170,13 @@
 
 /* Style for the download link text */
 .download-link-text {
-  font-size: 12px; /* Smaller font size */
-  color: #888; /* Lighter color */
+  font-size: 18px; /* Larger font size */
+  color: #eee; /* Lighter color for better visibility */
   word-break: break-all; /* Break long words to prevent overflow */
   margin-top: 5px; /* Space above the button */
   margin-bottom: 5px; /* Space below the button */
   white-space: normal; /* Allow text to wrap */
+  font-weight: bold; /* Make the text bold */
 }
 
 </style>
@@ -424,6 +425,15 @@ if (movieData && movieData.title === title2) {
         let extractedLink = quality.streamUrl;
         if (extractedLink.startsWith(baseUrl)) {
             extractedLink = extractedLink.substring(baseUrl.length);
+        }
+        // Remove "Vsm/1367/" or similar patterns
+        extractedLink = extractedLink.replace(/Vsm\/\d+\//, '');
+        // Replace periods with spaces (except for the file extension)
+        const lastDotIndex = extractedLink.lastIndexOf('.');
+        if (lastDotIndex > 0) {
+            extractedLink = extractedLink.substring(0, lastDotIndex).replace(/\./g, ' ') + extractedLink.substring(lastDotIndex);
+        } else {
+            extractedLink = extractedLink.replace(/\./g, ' ');
         }
         downloadLinkText.textContent = extractedLink;
 

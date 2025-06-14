@@ -73,7 +73,7 @@
       background-color: #555;
     }
 
-    /* Original Sidebar Styles (from previous version) */
+    /* Sidebar Styles */
     .sidebar {
       position: fixed;
       top: 0;
@@ -106,7 +106,7 @@
     .sidebar ul {
       list-style: none;
       padding: 0;
-      text-align: left; /* Align text left for better readability */
+      /* text-align: left; /* Removed this for specific control on menu items */
     }
 
     .sidebar ul li {
@@ -114,13 +114,16 @@
     }
 
     .sidebar a {
-      display: block;
-      padding: 12px 25px; /* Adjusted padding */
+      display: flex; /* Use flexbox for icon and text alignment */
+      align-items: center;
+      padding: 12px 25px; /* Consistent padding for all links */
       color: white;
       text-decoration: none;
       font-size: 16px;
       transition: background 0.2s ease;
       border-radius: 5px; /* Slightly rounded corners for links */
+      font-weight: normal; /* Ensure consistent font weight */
+      text-align: left; /* Ensure text alignment is left */
     }
 
     .sidebar a i {
@@ -135,36 +138,43 @@
       color: #0ff; /* Highlight text on hover */
     }
 
-    /* Category Header for Collapse */
-    .sidebar .category-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between; /* To push icon to the right */
-      padding: 12px 25px;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
+    /* Category and More Headers (Now styled like regular links but with toggle) */
+    .sidebar .menu-toggle-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Pushes the chevron to the right */
+        padding: 12px 25px;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: background 0.2s ease;
+        border-radius: 5px;
+        cursor: pointer; /* Indicate it's clickable */
+        font-weight: normal; /* Ensure consistent font weight */
+        text-align: left; /* Ensure text alignment is left */
     }
 
-    .sidebar .category-header i {
-      margin-right: 0; /* Reset margin for the chevron icon */
-      margin-left: 10px; /* Space between text and chevron */
-      transition: transform 0.3s ease;
+    .sidebar .menu-toggle-header:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #0ff;
     }
 
-    .sidebar .category-header.open i {
-      transform: rotate(90deg); /* Rotate for open state */
+    .sidebar .menu-toggle-header .icon-left {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
     }
 
-    .sidebar .category-header:hover {
-      background: rgba(255, 255, 255, 0.15);
-      color: #0ff;
+    .sidebar .menu-toggle-header .icon-right {
+        transition: transform 0.3s ease; /* Smooth rotation for chevron */
     }
 
-    /* Collapsible Category List */
-    .sidebar .category-list {
+    .sidebar .menu-toggle-header.open .icon-right {
+        transform: rotate(90deg); /* Rotate for open state */
+    }
+
+    /* Collapsible Sub-lists */
+    .sidebar .sub-menu {
       list-style: none;
       padding-left: 20px; /* Indent sub-items */
       max-height: 0; /* Initially hidden */
@@ -173,19 +183,20 @@
       background: rgba(0, 0, 0, 0.1); /* Slightly different background for sub-list */
     }
 
-    .sidebar .category-list.open {
+    .sidebar .sub-menu.open {
       max-height: 500px; /* Large enough to show all items, adjust if you have many */
       padding-bottom: 10px;
     }
 
-    .sidebar .category-list li {
+    .sidebar .sub-menu li {
       margin-bottom: 0; /* No extra spacing for sub-list items */
     }
 
-    .sidebar .category-list a {
-      padding: 8px 25px 8px 30px; /* Adjust padding for sub-items */
+    .sidebar .sub-menu a {
+      padding: 8px 25px 8px 30px; /* Adjust padding for sub-items to match indentation */
       font-size: 15px;
     }
+
 
     /* Menu Button in Header */
     .menu-btn {
@@ -412,29 +423,36 @@
     <ul>
       <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
       <li><a href="https://technicalbichu.blogspot.com" target="_blank"><i class="fas fa-user"></i> Owner</a></li>
-      <li class="category-header" onclick="toggleCategory(this)">
-        <i class="fas fa-list"></i> Category <i class="fas fa-chevron-right"></i>
+
+      <li>
+        <div class="menu-toggle-header" onclick="toggleSubMenu(this)">
+          <i class="fas fa-list icon-left"></i> Category <i class="fas fa-chevron-right icon-right"></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a href="src/template/view-all.html?category=anime"><i class="fa-regular fa-play"></i> Anime</a></li>
+          <li><a href="src/template/view-all.html?category=bollywood-movie"><i class="fa-regular fa-play"></i> Bollywood Movies</a></li>
+          <li><a href="src/template/view-all.html?category=hindi-series"><i class="fa-regular fa-play"></i> Hindi Series</a></li>
+          <li><a href="src/template/view-all.html?category=hollywood-movie"><i class="fa-regular fa-play"></i> Hollywood Movies</a></li>
+          <li><a href="src/template/view-all.html?category=english-series"><i class="fa-regular fa-play"></i> English Series</a></li>
+          <li><a href="src/template/view-all.html?category=south-movie"><i class="fa-regular fa-play"></i> South Movies</a></li>
+          <li><a href="src/template/view-all.html?category=korean-movie"><i class="fa-regular fa-play"></i> Korean Movies</a></li>
+          <li><a href="src/template/view-all.html?category=k-drama"><i class="fa-regular fa-play"></i> Korean Drama</a></li>
+          <li><a href="src/template/view-all.html?category=chinese-movie"><i class="fa-regular fa-play"></i> Chinese Movie</a></li>
+        </ul>
       </li>
-      <ul class="category-list">
-        <li><a href="src/template/view-all.html?category=anime"><i class="fa-regular fa-play"></i> Anime</a></li>
-        <li><a href="src/template/view-all.html?category=bollywood-movie"><i class="fa-regular fa-play"></i> Bollywood Movies</a></li>
-        <li><a href="src/template/view-all.html?category=hindi-series"><i class="fa-regular fa-play"></i> Hindi Series</a></li>
-        <li><a href="src/template/view-all.html?category=hollywood-movie"><i class="fa-regular fa-play"></i> Hollywood Movies</a></li>
-        <li><a href="src/template/view-all.html?category=english-series"><i class="fa-regular fa-play"></i> English Series</a></li>
-        <li><a href="src/template/view-all.html?category=south-movie"><i class="fa-regular fa-play"></i> South Movies</a></li>
-        <li><a href="src/template/view-all.html?category=korean-movie"><i class="fa-regular fa-play"></i> Korean Movies</a></li>
-        <li><a href="src/template/view-all.html?category=k-drama"><i class="fa-regular fa-play"></i> Korean Drama</a></li>
-        <li><a href="src/template/view-all.html?category=chinese-movie"><i class="fa-regular fa-play"></i> Chinese Movie</a></li>
-      </ul>
+
       <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
       <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
-      <li class="category-header" onclick="toggleMore(this)">
-        <i class="fas fa-ellipsis-h"></i> More <i class="fas fa-chevron-right"></i>
+
+      <li>
+        <div class="menu-toggle-header" onclick="toggleSubMenu(this)">
+          <i class="fas fa-ellipsis-h icon-left"></i> More <i class="fas fa-chevron-right icon-right"></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
       </li>
-      <ul class="category-list more-options">
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
-      </ul>
     </ul>
     <div class="footer-sidebar">© <span id='getYearSidebar'></span> All Rights Reserved</div>
   </div>
@@ -772,28 +790,13 @@
         }
     });
 
-    // Function to toggle category lists
-    function toggleCategory(header) {
-      const categoryList = header.nextElementSibling; // Get the next sibling (the ul.category-list)
-      const icon = header.querySelector('.fas'); // Get the icon within the header
+    // Function to toggle sub-menus (Category and More)
+    function toggleSubMenu(header) {
+      const subMenu = header.nextElementSibling; // Get the next sibling (the ul.sub-menu)
+      const icon = header.querySelector('.icon-right'); // Get the right-side icon
 
-      categoryList.classList.toggle('open');
+      subMenu.classList.toggle('open');
       header.classList.toggle('open'); // Add/remove 'open' class to the header itself for styling if needed
-
-      if (icon.classList.contains('fa-chevron-right')) {
-        icon.classList.replace('fa-chevron-right', 'fa-chevron-down');
-      } else {
-        icon.classList.replace('fa-chevron-down', 'fa-chevron-right');
-      }
-    }
-
-    // Function to toggle 'More' options list
-    function toggleMore(header) {
-      const moreOptionsList = header.nextElementSibling; // Get the next sibling (the ul.category-list)
-      const icon = header.querySelector('.fas'); // Get the icon within the header
-
-      moreOptionsList.classList.toggle('open');
-      header.classList.toggle('open');
 
       if (icon.classList.contains('fa-chevron-right')) {
         icon.classList.replace('fa-chevron-right', 'fa-chevron-down');

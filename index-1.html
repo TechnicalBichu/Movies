@@ -1,719 +1,722 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Files</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Files - Home</title>
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="/assets/favicon/logo.webp">
+  <link rel="icon" type="image/png" href="/assets/favicon/logo.webp">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> <!-- Add Font Awesome -->
-
-<style>
-  /* General Body Styles */
-  body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    transition: background-color 0.3s, color 0.3s;
-  }
-
-  /* Dark Mode Styling */
-  body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-  }
-
-  /* Light Mode Styling */
-  body.light-mode {
-    background-color: #ffffff;
-    color: #121212;
-  }
-
-  /* Header Styling */
-  header {
-    background-color: #222;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  header h1 {
-    font-size: 20px;
-    margin: 0;
-    font-weight: bold;
-  } 
-  
-  .headerIcon {
-    display: flex;
-    gap: 10px; /* Adjust gap size as needed */
-    align-items: center;
-  }
-
-  /* Toggle and Search Button */
-  .mode-toggle, .searchbtn {
-    background-color: #444;
-    border: none;
-    border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    color: #ffffff;
-    font-size: 20px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out, background-color 0.3s;
-  }
-
-  .mode-toggle:hover, .searchbtn:hover {
-    transform: scale(1.1);
-    background-color: #555;
-  }
-
-  /* Main Content Section */
-  .section {
-    padding: 5px;
-    margin-bottom: -20px; /* Reduced margin to minimize gap */
-    max-width: 100%;
-  }
-
-  .section-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #ff9800;
-  margin: 10px 0;
-  border-left: 4px solid #ff9800;
-  padding-left: 10px;
-  display: flex; /* Use flexbox to align items in a row */
-  justify-content: space-between; /* Distribute space between title and link */
-  align-items: center; /* Vertically center the content */
-}
-
-.view-all {
-  font-size: 14px;
-  color: #7B00FF;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.view-all:hover {
-  text-decoration: underline; /* Add underline on hover for better UX */
-}
-  
-  /* Carousel Wrapper */
-  .scrollBtn-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    height: 200px; /* Fixed height for the container */
-    overflow: hidden;
-  }
-
-  /* Carousel Container */
-  .carousel-container {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 10px 0; /* Reduce padding inside the scroll container */
-    background-color: ##1e1e1e;
-    border-radius: 10px;
-  }
-
-  /* Hide the scrollbar */
-  .carousel-container::-webkit-scrollbar {
-    display: none;
-  }
-
-  .carousel-container {
-    scrollbar-width: none; /* Firefox */
-  }
-
-  /* Carousel Item Styling */
-  .scroll-item {
-    flex: 0 0 auto;
-    width: 120px;
-    background-color: #1e1e1e;
-    border-radius: 12px;
-    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); */
-    transition: transform 0.3s, box-shadow 0.3s;
-    overflow: hidden;
-    cursor: pointer;
-    text-align: center;
-  }
-
-  .scroll-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
-  }
-
-  /* Image Container */
-  .image-container {
-    width: 100%;
-    height: 140px;
-    overflow: hidden;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-  }
-
-  .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .scroll-item:hover .image-container img {
-    transform: scale(1.1);
-  }
-
-  /* Title Styling */
-  .title-container {
-    padding: 10px 5px;
-    background-color: #282828;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  } 
-  
-  .title {
-    font-size: 12px;
-    font-weight: bold;
-    color: #ffffff;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  } 
-  
-  /* Navigation Arrows */
-  .scroll-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #ffffff;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    transition: background-color 0.3s;
-  }
-
-  .scroll-nav:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  
-/* nav btn padding */
-  .scroll-nav.left {
-    left: 5px;
-  }
-  
-/* nav btn padding */
-  .scroll-nav.right {
-    right: 5px;
-  }
-
-  .scroll-nav.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  /* Loading State */
-  .loading {
-    animation: shimmer 1.5s infinite linear;
-    background: linear-gradient(to right, #333 8%, #444 18%, #333 33%);
-    background-size: 800px 100%;
-    height: 78px;
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -800px 0;
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* General Body Styles */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #f2f2f2; /* Default light mode background */
+      transition: background-color 0.3s, color 0.3s;
     }
-    100% {
-      background-position: 800px 0;
+
+    /* Dark Mode Styling */
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
     }
-  }
-</style>
+
+    /* Light Mode Styling */
+    body.light-mode {
+      background-color: #ffffff;
+      color: #121212;
+    }
+
+    /* Header Styling */
+    header {
+      background-color: #222;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .headerIcon {
+      display: flex;
+      gap: 10px; /* Adjust gap size as needed */
+      align-items: center;
+    }
+
+    /* Toggle and Search Button */
+    .mode-toggle, .searchbtn {
+      background-color: #444;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      color: #ffffff;
+      font-size: 20px;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out, background-color 0.3s;
+    }
+
+    .mode-toggle:hover, .searchbtn:hover {
+      transform: scale(1.1);
+      background-color: #555;
+    }
+
+    /* New Sidebar Styles */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px; /* Hidden by default */
+      width: 250px;
+      height: 100%;
+      background: linear-gradient(160deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      padding-top: 60px;
+      transition: left 0.3s ease;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      z-index: 999;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Add shadow for depth */
+      overflow-y: auto; /* Enable scrolling for long menus */
+    }
+
+    .sidebar.active {
+      left: 0; /* Show sidebar */
+    }
+
+    .sidebar h3 {
+      text-align: center;
+      margin-top: -20px; /* Adjust if needed to align with logo */
+      margin-bottom: 20px;
+      color: #0ff; /* Bright color for branding */
+      font-size: 24px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      text-align: left; /* Align text left for better readability */
+    }
+
+    .sidebar ul li {
+      margin-bottom: 5px; /* Spacing between list items */
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 12px 25px; /* Adjusted padding */
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.2s ease;
+      border-radius: 5px; /* Slightly rounded corners for links */
+    }
+
+    .sidebar a i {
+      margin-right: 10px;
+      width: 20px; /* Give icons a fixed width for alignment */
+      text-align: center;
+    }
+
+    .sidebar a:hover {
+      background: rgba(255, 255, 255, 0.15); /* Slightly brighter hover */
+      color: #0ff; /* Highlight text on hover */
+    }
+
+    /* Menu Button in Header */
+    .menu-btn {
+      font-size: 24px;
+      cursor: pointer;
+      color: white; /* Changed to white to fit header */
+      margin-right: 15px; /* Space from brand name */
+      transition: transform 0.2s ease-in-out;
+    }
+    .menu-btn:hover {
+        transform: scale(1.1);
+    }
+
+    /* Close Button in Sidebar */
+    .close-btn {
+      font-size: 28px; /* Slightly larger */
+      cursor: pointer;
+      position: absolute;
+      top: 15px; /* Adjusted top */
+      left: 210px;
+      color: #ff5722; /* A vibrant color for the close button */
+      z-index: 1000;
+      transition: transform 0.2s ease-in-out;
+    }
+    .close-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .footer-sidebar { /* Renamed to avoid conflict with main footer */
+      position: sticky; /* Sticky to bottom of sidebar if content is short */
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      color: #ccc;
+      font-size: 12px; /* Slightly smaller for sidebar footer */
+      padding: 15px 0;
+      background: #111; /* Darker background for footer in sidebar */
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+
+    /* Main Content Section */
+    .section {
+      padding: 5px;
+      margin-bottom: -20px; /* Reduced margin to minimize gap */
+      max-width: 100%;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ff9800;
+      margin: 10px 0;
+      border-left: 4px solid #ff9800;
+      padding-left: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .view-all {
+      font-size: 14px;
+      color: #7B00FF;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .view-all:hover {
+      text-decoration: underline;
+    }
+
+    /* Carousel Wrapper */
+    .scrollBtn-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: 200px; /* Fixed height for the container */
+      overflow: hidden;
+    }
+
+    /* Carousel Container */
+    .carousel-container {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 10px 0;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+    }
+
+    /* Hide the scrollbar */
+    .carousel-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-container {
+      scrollbar-width: none; /* Firefox */
+    }
+
+    /* Carousel Item Styling */
+    .scroll-item {
+      flex: 0 0 auto;
+      width: 120px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .scroll-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Image Container */
+    .image-container {
+      width: 100%;
+      height: 140px;
+      overflow: hidden;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .scroll-item:hover .image-container img {
+      transform: scale(1.1);
+    }
+
+    /* Title Styling */
+    .title-container {
+      padding: 10px 5px;
+      background-color: #282828;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: bold;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .title {
+      font-size: 12px;
+      font-weight: bold;
+      color: #ffffff;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* Navigation Arrows */
+    .scroll-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      transition: background-color 0.3s;
+    }
+
+    .scroll-nav:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .scroll-nav.left {
+      left: 5px;
+    }
+
+    .scroll-nav.right {
+      right: 5px;
+    }
+
+    .scroll-nav.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Loading State */
+    .loading {
+      animation: shimmer 1.5s infinite linear;
+      background: linear-gradient(to right, #333 8%, #444 18%, #333 33%);
+      background-size: 800px 100%;
+      height: 78px;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -800px 0;
+      }
+      100% {
+        background-position: 800px 0;
+      }
+    }
+  </style>
+</head>
 
 <body class="light-mode">
 
-<!-- Header -->
-<header>
-  <h1>Nexus Files</h1>
-  <div class="headerIcon">
-  <!-- Search Button -->
-  <button class="searchbtn" onclick="window.location.href='src/template/search.html';">
-    <i class="fas fa-search"></i>
-  </button>
-  
-  <!-- Mode Toggle Button -->
-  <button class="mode-toggle" onclick="toggleMode()">
-    <i class="fas fa-sun"></i>
-  </button>
+  <div class="sidebar" id="sidebar">
+    <div class="close-btn" onclick="toggleSidebar()">
+      <i class="fas fa-times-circle"></i>
+    </div>
+    <h3>Nexus Files</h3>
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="https://technicalbichu.blogspot.com" target="_blank"><i class="fas fa-user"></i> Owner</a></li>
+      <li><a href="src/template/view-all.html?category=hollywood-movie"><i class="fas fa-film"></i> Hollywood Movie</a></li>
+      <li><a href="src/template/view-all.html?category=bollywood-movie"><i class="fas fa-film"></i> Bollywood Movie</a></li>
+      <li><a href="src/template/view-all.html?category=anime"><i class="fas fa-dragon"></i> Anime</a></li>
+      <li><a href="src/template/view-all.html?category=k-drama"><i class="fas fa-star"></i> K-Drama</a></li>
+      <li><a href="src/template/view-all.html?category=english-series"><i class="fas fa-tv"></i> English Series</a></li>
+      <li><a href="src/template/view-all.html?category=hindi-series"><i class="fas fa-tv"></i> Hindi Series</a></li>
+      <li><a href="src/template/view-all.html?category=korean-movie"><i class="fas fa-film"></i> Korean Movie</a></li>
+      <li><a href="src/template/view-all.html?category=south-movie"><i class="fas fa-film"></i> South Movie</a></li>
+      <li><a href="src/template/view-all.html?category=chinese-movie"><i class="fas fa-film"></i> Chinese Movie</a></li>
+    </ul>
+    <div class="footer-sidebar">© <span id='getYearSidebar'></span> All Rights Reserved</div>
   </div>
-</header> 
 
+  <header>
+    <div class="menu-btn" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </div>
+    <h1>Nexus Files web-app</h1>
+    <div class="headerIcon">
+      <button class="searchbtn" onclick="window.location.href='src/template/search.html';">
+        <i class="fas fa-search"></i>
+      </button>
 
+      <button class="mode-toggle" onclick="toggleMode()">
+        <i class="fas fa-sun"></i>
+      </button>
+    </div>
+  </header>
 
-<!-- Main Container -->
-<div class="main-container" style="padding: 5px;">
+  <div class="main-container" style="padding: 5px;">
 
-
-
-<!-- Hollywood Movie Content -->
-<div class="section">
-  <div class="section-title">Hollywood Movie
-	  <a href="src/template/view-all.html?category=hollywood-movie" class="view-all">View All</a>
-  </div>
-  
-  <div class="scrollBtn-wrapper">
-    <button class="scroll-nav left" id="prev-btn-hollywood-movie" onclick="scrollCarousel('hollywood-movie', -1)"><i class="fa fa-angle-left"></i></button>
-  
-    <div class="carousel-container" id="movies-carousel-hollywood-movie">
-      <!-- Carousel Items -->
-      <div class="scroll-item">
-        <div class="image-container loading">
-          
-        </div>
-        <div class="title-container loading"></div>
+    <div class="section">
+      <div class="section-title">Hollywood Movie
+        <a href="src/template/view-all.html?category=hollywood-movie" class="view-all">View All</a>
       </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
+
+      <div class="scrollBtn-wrapper">
+        <button class="scroll-nav left" id="prev-btn-hollywood-movie" onclick="scrollCarousel('hollywood-movie', -1)"><i class="fa fa-angle-left"></i></button>
+
+        <div class="carousel-container" id="movies-carousel-hollywood-movie">
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
         </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+        <button class="scroll-nav right" id="next-btn-hollywood-movie" onclick="scrollCarousel('hollywood-movie', 1)"><i class="fa fa-angle-right"></i></button>
       </div>
     </div>
-    
-    <button class="scroll-nav right" id="next-btn-hollywood-movie" onclick="scrollCarousel('hollywood-movie', 1)"><i class="fa fa-angle-right"></i></button>
-  </div>
-</div>
 
+    <div class="section">
+      <div class="section-title">Bollywood Movie
+        <a href="src/template/view-all.html?category=bollywood-movie" class="view-all">View All</a>
+      </div>
 
-<!-- Bollywood Movie Content -->
-<div class="section">
-  <div class="section-title">Bollywood Movie
-	  <a href="src/template/view-all.html?category=bollywood-movie" class="view-all">View All</a>
-  </div>
-  
-  <div class="scrollBtn-wrapper">
-    <button class="scroll-nav left" id="prev-btn-bollywood-movie" onclick="scrollCarousel('bollywood-movie', -1)"><i class="fa fa-angle-left"></i></button>
-  
-    <div class="carousel-container" id="movies-carousel-bollywood-movie">
-      <!-- Carousel Items -->
-      <div class="scroll-item">
-        <div class="image-container loading">
-          
+      <div class="scrollBtn-wrapper">
+        <button class="scroll-nav left" id="prev-btn-bollywood-movie" onclick="scrollCarousel('bollywood-movie', -1)"><i class="fa fa-angle-left"></i></button>
+
+        <div class="carousel-container" id="movies-carousel-bollywood-movie">
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
         </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+        <button class="scroll-nav right" id="next-btn-bollywood-movie" onclick="scrollCarousel('bollywood-movie', 1)"><i class="fa fa-angle-right"></i></button>
       </div>
     </div>
-    
-    <button class="scroll-nav right" id="next-btn-bollywood-movie" onclick="scrollCarousel('bollywood-movie', 1)"><i class="fa fa-angle-right"></i></button>
-  </div>
-</div>
 
-<!-- Anime Content -->
-<div class="section">
-  <div class="section-title">Anime
-	  <a href="src/template/view-all.html?category=anime" class="view-all">View All</a>
-  </div>
-  
-  <div class="scrollBtn-wrapper">
-    <button class="scroll-nav left" id="prev-btn-anime" onclick="scrollCarousel('anime', -1)"><i class="fa fa-angle-left"></i></button>
-  
-    <div class="carousel-container" id="movies-carousel-anime">
-      <!-- Carousel Items -->
-      <div class="scroll-item">
-        <div class="image-container loading">
-          
-        </div>
-        <div class="title-container loading"></div>
+    <div class="section">
+      <div class="section-title">Anime
+        <a href="src/template/view-all.html?category=anime" class="view-all">View All</a>
       </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
+
+      <div class="scrollBtn-wrapper">
+        <button class="scroll-nav left" id="prev-btn-anime" onclick="scrollCarousel('anime', -1)"><i class="fa fa-angle-left"></i></button>
+
+        <div class="carousel-container" id="movies-carousel-anime">
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
         </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+        <button class="scroll-nav right" id="next-btn-anime" onclick="scrollCarousel('anime', 1)"><i class="fa fa-angle-right"></i></button>
       </div>
     </div>
-    
-    <button class="scroll-nav right" id="next-btn-anime" onclick="scrollCarousel('anime', 1)"><i class="fa fa-angle-right"></i></button>
-  </div>
-</div>
 
-<!-- K-Drama Content -->
-<div class="section">
-  <div class="section-title">K-Drama
-	  <a href="src/template/view-all.html?category=k-drama" class="view-all">View All</a>
-  </div>
-  
-  <div class="scrollBtn-wrapper">
-    <button class="scroll-nav left" id="prev-btn-k-drama" onclick="scrollCarousel('k-drama', -1)"><i class="fa fa-angle-left"></i></button>
-  
-    <div class="carousel-container" id="movies-carousel-k-drama">
-      <!-- Carousel Items -->
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+    <div class="section">
+      <div class="section-title">K-Drama
+        <a href="src/template/view-all.html?category=k-drama" class="view-all">View All</a>
       </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
+
+      <div class="scrollBtn-wrapper">
+        <button class="scroll-nav left" id="prev-btn-k-drama" onclick="scrollCarousel('k-drama', -1)"><i class="fa fa-angle-left"></i></button>
+
+        <div class="carousel-container" id="movies-carousel-k-drama">
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
         </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+        <button class="scroll-nav right" id="next-btn-k-drama" onclick="scrollCarousel('k-drama', 1)"><i class="fa fa-angle-right"></i></button>
       </div>
     </div>
-    
-    <button class="scroll-nav right" id="next-btn-k-drama" onclick="scrollCarousel('k-drama', 1)"><i class="fa fa-angle-right"></i></button>
-  </div>
-</div>  
 
+    <div class="section">
+      <div class="section-title">English Series
+        <a href="src/template/view-all.html?category=english-series" class="view-all">View All</a>
+      </div>
 
-<!-- English-Series Content -->
-<div class="section">
-  <div class="section-title">English Series
-	  <a href="src/template/view-all.html?category=english-series" class="view-all">View All</a>
-  </div>
-  
-  <div class="scrollBtn-wrapper">
-    <button class="scroll-nav left" id="prev-btn-english-series" onclick="scrollCarousel('english-series', -1)"><i class="fa fa-angle-left"></i></button>
-  
-    <div class="carousel-container" id="movies-carousel-english-series">
-      <!-- Carousel Items -->
-      <div class="scroll-item">
-        <div class="image-container loading">
-          
+      <div class="scrollBtn-wrapper">
+        <button class="scroll-nav left" id="prev-btn-english-series" onclick="scrollCarousel('english-series', -1)"><i class="fa fa-angle-left"></i></button>
+
+        <div class="carousel-container" id="movies-carousel-english-series">
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
         </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+        <button class="scroll-nav right" id="next-btn-english-series" onclick="scrollCarousel('english-series', 1)"><i class="fa fa-angle-right"></i></button>
       </div>
     </div>
-    
-    <button class="scroll-nav right" id="next-btn-english-series" onclick="scrollCarousel('english-series', 1)"><i class="fa fa-angle-right"></i></button>
-  </div>
-</div>
 
+    <div class="section">
+      <div class="section-title">Hindi Series
+        <a href="src/template/view-all.html?category=hindi-series" class="view-all">View All</a>
+      </div>
 
-<!-- Hindi-Series Content -->
-<div class="section">
-  <div class="section-title">Hindi Series
-	  <a href="src/template/view-all.html?category=hindi-series" class="view-all">View All</a>
-  </div>
-  
-  <div class="scrollBtn-wrapper">
-    <button class="scroll-nav left" id="prev-btn-hindi-series" onclick="scrollCarousel('hindi-series', -1)"><i class="fa fa-angle-left"></i></button>
-  
-    <div class="carousel-container" id="movies-carousel-hindi-series">
-      <!-- Carousel Items -->
-      <div class="scroll-item">
-        <div class="image-container loading">
-          
+      <div class="scrollBtn-wrapper">
+        <button class="scroll-nav left" id="prev-btn-hindi-series" onclick="scrollCarousel('hindi-series', -1)"><i class="fa fa-angle-left"></i></button>
+
+        <div class="carousel-container" id="movies-carousel-hindi-series">
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
         </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+        <button class="scroll-nav right" id="next-btn-hindi-series" onclick="scrollCarousel('hindi-series', 1)"><i class="fa fa-angle-right"></i></button>
       </div>
     </div>
-    
-    <button class="scroll-nav right" id="next-btn-hindi-series" onclick="scrollCarousel('hindi-series', 1)"><i class="fa fa-angle-right"></i></button>
-  </div>
-</div> 
 
+    <div class="section">
+      <div class="section-title">Korean Movie
+        <a href="src/template/view-all.html?category=korean-movie" class="view-all">View All</a>
+      </div>
 
-<!-- korean-movie Content -->
-<div class="section">
-  <div class="section-title">Korean Movie
-	  <a href="src/template/view-all.html?category=korean-movie" class="view-all">View All</a>
-  </div>
-  
-  <div class="scrollBtn-wrapper">
-    <button class="scroll-nav left" id="prev-btn-korean-movie" onclick="scrollCarousel('korean-movie', -1)"><i class="fa fa-angle-left"></i></button>
-  
-    <div class="carousel-container" id="movies-carousel-korean-movie">
-      <!-- Carousel Items -->
-      <div class="scroll-item">
-        <div class="image-container loading">
-          
+      <div class="scrollBtn-wrapper">
+        <button class="scroll-nav left" id="prev-btn-korean-movie" onclick="scrollCarousel('korean-movie', -1)"><i class="fa fa-angle-left"></i></button>
+
+        <div class="carousel-container" id="movies-carousel-korean-movie">
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
         </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+        <button class="scroll-nav right" id="next-btn-korean-movie" onclick="scrollCarousel('korean-movie', 1)"><i class="fa fa-angle-right"></i></button>
       </div>
     </div>
-    
-    <button class="scroll-nav right" id="next-btn-korean-movie" onclick="scrollCarousel('korean-movie', 1)"><i class="fa fa-angle-right"></i></button>
-  </div>
-</div>
 
+    <div class="section">
+      <div class="section-title">South Movie
+        <a href="src/template/view-all.html?category=south-movie" class="view-all">View All</a>
+      </div>
 
-<!-- South-Movie Content -->
-<div class="section">
-  <div class="section-title">South Movie
-	  <a href="src/template/view-all.html?category=south-movie" class="view-all">View All</a>
-  </div>
-  
-  <div class="scrollBtn-wrapper">
-    <button class="scroll-nav left" id="prev-btn-south-movie" onclick="scrollCarousel('south-movie', -1)"><i class="fa fa-angle-left"></i></button>
-  
-    <div class="carousel-container" id="movies-carousel-south-movie">
-      <!-- Carousel Items -->
-      <div class="scroll-item">
-        <div class="image-container loading">
-          
+      <div class="scrollBtn-wrapper">
+        <button class="scroll-nav left" id="prev-btn-south-movie" onclick="scrollCarousel('south-movie', -1)"><i class="fa fa-angle-left"></i></button>
+
+        <div class="carousel-container" id="movies-carousel-south-movie">
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
         </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+        <button class="scroll-nav right" id="next-btn-south-movie" onclick="scrollCarousel('south-movie', 1)"><i class="fa fa-angle-right"></i></button>
       </div>
     </div>
-    
-    <button class="scroll-nav right" id="next-btn-south-movie" onclick="scrollCarousel('south-movie', 1)"><i class="fa fa-angle-right"></i></button>
-  </div>
-</div>
 
+    <div class="section">
+      <div class="section-title">Chinese Movie
+        <a href="src/template/view-all.html?category=chinese-movie" class="view-all">View All</a>
+      </div>
 
-<!-- Chinese-Movie Content -->
-<div class="section">
-  <div class="section-title">Chinese Movie
-	  <a href="src/template/view-all.html?category=chinese-movie" class="view-all">View All</a>
-  </div>
-  
-  <div class="scrollBtn-wrapper">
-    <button class="scroll-nav left" id="prev-btn-chinese-movie" onclick="scrollCarousel('chinese-movie', -1)"><i class="fa fa-angle-left"></i></button>
-  
-    <div class="carousel-container" id="movies-carousel-chinese-movie">
-      <!-- Carousel Items -->
-      <div class="scroll-item">
-        <div class="image-container loading">
-          
+      <div class="scrollBtn-wrapper">
+        <button class="scroll-nav left" id="prev-btn-chinese-movie" onclick="scrollCarousel('chinese-movie', -1)"><i class="fa fa-angle-left"></i></button>
+
+        <div class="carousel-container" id="movies-carousel-chinese-movie">
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
+          <div class="scroll-item">
+            <div class="image-container loading"></div>
+            <div class="title-container loading"></div>
+          </div>
         </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
-      </div>
-      
-      <div class="scroll-item">
-        <div class="image-container loading">
-        </div>
-        <div class="title-container loading"></div>
+        <button class="scroll-nav right" id="next-btn-chinese-movie" onclick="scrollCarousel('chinese-movie', 1)"><i class="fa fa-angle-right"></i></button>
       </div>
     </div>
-    
-    <button class="scroll-nav right" id="next-btn-chinese-movie" onclick="scrollCarousel('chinese-movie', 1)"><i class="fa fa-angle-right"></i></button>
-  </div>
-</div>
 
+  </div> <footer>
+    <div class="footer" style="margin-top: 40px; border-radius: 20px 20px 0px 0px; box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 35px; box-sizing: border-box; padding:15px; position: relative; left:0; bottom:0; width:100%; text-align: center; background-color: #222; font-size: 14px;  color: #fff;">
+      <div class="made-with-love" style="color: #ff9800; margin: 5px 0;">Made with ❤ by TechnicalBichu</div>
 
-</div> <!-- Main-Container Close/Ends Here -->
+      <div style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
+        <b>╭───────────────────<br>
+        ├ ☆ Website ➠ </b><a href="http://nexusfiles.netlify.app/" style="color:#0ff; text-decoration: none;">Click Here</a><b> ᯓᡣ𐭩</b><br>
+        <b>├ ☆ Instagram ➠ </b><a href="http://instagram.com/technicalbichu" style="color:#0ff; text-decoration: none;">Click Here</a><b> ᯓᡣ𐭩</b><br>
+        <b>├ ☆ Youtube ➠ </b><a href="http://youtube.com/@TechnicalBichu" style="color:#0ff; text-decoration: none;">Click Here</a><b> ᯓᡣ𐭩</b><br>
+        <b>├ ☆ Telegram ➠ </b><a href="http://t.me/TechnicalBichu" style="color:#0ff; text-decoration: none;">Click Here</a><b> ᯓᡣ𐭩</b><br>
+        <b>├ ☆ Facebook ➠ </b><a href="http://facebook.com/TechnicalBichu" style="color:#0ff; text-decoration: none;">Click Here</a><b> ᯓᡣ𐭩</b><br>
+        <b>├ ☆ Bot (Ads) ➠ </b><a href="http://t.me/files_search_bot" style="color:#0ff; text-decoration: none;">Click Here</a><br>
+        <b>├ ☆ Bot (No Ads) ➠ </b><a href="http://t.me/nexus_files_bot" style="color:#0ff; text-decoration: none;">Click Here</a><br>
+        <b>╰───────────────────</b>
+      </div>
 
-<!-- Footer -->
-  <footer>
-  <div class="footer" style="margin-top: 40px; border-radius: 20px 20px 0px 0px; box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 35px; box-sizing: border-box; padding:15px; position: relative; left:0; bottom:0; width:100%; text-align: center; background-color: #222; font-size: 14px;  color: #fff;">
-    <div class="made-with-love" style="color: #ff9800; margin: 5px 0;">Made with ❤ by TechnicalBichu</div>
-    
-    <div class="social-links" style="
-        margin-top: 10px; margin-bottom: 10px;">
-        <a href="https://github.com/" target="_blank" style="
-            margin: 0 10px; 
-            color: #fff; 
-            text-decoration: none; 
-            font-size: 16px;">
-            <i class="fab fa-github"></i>
-        </a>
-        <a href="https://twitter.com/" target="_blank" style="
-            margin: 0 10px; 
-            color: #fff; 
-            text-decoration: none; 
-            font-size: 16px;">
-            <i class="fab fa-twitter"></i>
-        </a>
-        <a href="https://linkedin.com/" target="_blank" style="
-            margin: 0 10px; 
-            color: #fff; 
-            text-decoration: none; 
-            font-size: 16px;">
-            <i class="fab fa-linkedin"></i>
-        </a>
+      <div>
+        © <span id='getYear'>
+        <script>
+        /*<![CDATA[*/ var d = new Date(); var n = d.getFullYear(); document.getElementById('getYear').innerHTML = n; /*]]>*/
+        </script></span> ‧
+        <bdi>
+          <a href='https://t.me/TechnicalBichu' style="color:red; text-decoration: none;">TechnicalBichu</a>
+        </bdi>‧ All rights reserved.
+      </div>
     </div>
-    
-    <div>
-      © <span id='getYear'>
-      <script>
+  </footer>
 
-      /*<![CDATA[*/ var d = new Date(); var n = d.getFullYear(); document.getElementById('getYear').innerHTML = n; /*]]>*/
-      </script></span> ‧
-      <bdi>
-        <a href='https://t.me/TechnicalBichu' style="color:red; text-decoration: none;">TechnicalBichu</a>
-      </bdi>‧ All rights reserved.
-    </div>
-  </div>
-</footer>
-
-<!-- the api config file (must on all js top) -->
-<script src="src/api/config.js"></script>
-
-<script>
-  function scrollCarousel(type, direction) {
-    const carousel = document.getElementById(`movies-carousel-${type}`);
-    const scrollAmount = 200; // Adjust the scroll distance
-
-    if (direction === 1) {
-      carousel.scrollLeft += scrollAmount;
-    } else {
-      carousel.scrollLeft -= scrollAmount;
-    }
-  }
-</script>
-
+  <script src="src/api/config.js"></script>
 
   <script>
+    // JavaScript for the new sliding sidebar
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    // Dynamic year for sidebar footer
+    document.addEventListener('DOMContentLoaded', function() {
+        var d = new Date();
+        var n = d.getFullYear();
+        if (document.getElementById('getYearSidebar')) {
+            document.getElementById('getYearSidebar').innerHTML = n;
+        }
+    });
+
+    function scrollCarousel(type, direction) {
+      const carousel = document.getElementById(`movies-carousel-${type}`);
+      const scrollAmount = 200; // Adjust the scroll distance
+
+      if (direction === 1) {
+        carousel.scrollLeft += scrollAmount;
+      } else {
+        carousel.scrollLeft -= scrollAmount;
+      }
+    }
+  </script>
+
+  <script src="auth.js"></script> <script>
     // Function to fetch movie data
     async function fetchMovies(apiUrl) {
       const response = await fetch(apiUrl);
@@ -737,18 +740,40 @@
             <div class="title">${movie.Title2} (${movie.year})</div>
           </div>
         `;
-        
+
         item.addEventListener('click', () => {
           const movieData = {
             title: movie.Title2,
+            title3: movie.Title3,
+            type: movie.type,
             year: movie.year,
             thumbnail: movie.sources[0].thumbnail,
             qualities: movie.sources.map(source => ({
               quality: source.quality,
               fileSize: source.fileSize,
+              language: source.language,
+              otherLanguage: source.secondaryLanguages,
               streamUrl: source.streamUrl,
-              downloadLink: source.downloadLink
-            }))
+              downloadLink: source.downloadLink,
+              season: source.season,
+              episode: source.episode
+            })),
+            imdbData: {  // Add IMDb data here
+              imdbID: movie.imdbData?.imdbID || "N/A",
+              imdbRating: movie.imdbData?.imdbRating || "N/A",
+              imdbVotes: movie.imdbData?.imdbVotes || "N/A",
+              runtime: movie.imdbData?.runtime || "N/A",
+              Genre: movie.imdbData?.Genre || "N/A",
+              country: movie.imdbData?.country || "N/A",
+              director: movie.imdbData?.director || "N/A",
+              writer: movie.imdbData?.writer || "N/A",
+              actors: movie.imdbData?.actors || "N/A",
+              plot: movie.imdbData?.plot || "N/A",
+              poster: movie.imdbData?.poster || "N/A",
+              Type: movie.imdbData?.Type || "N/A",
+              totalSeasons: movie.imdbData?.totalSeasons || "N/A",
+              releaseDate: movie.imdbData?.releaseDate || "N/A"
+            }
           };
 
           // Store movie data in localStorage
@@ -764,57 +789,57 @@
 
     // Fetch and display Anime
     fetchMovies(`${BASE_API_URL}/anime`)
-      .then(movies => displayMovies(movies, 'movies-carousel-anime'))
+      .then(movies => displayMovies(movies, 'movies-carousel-anime', 'anime')) // Pass category
       .catch(console.error);
-      
+
       // Fetch and display Kdrama
     fetchMovies(`${BASE_API_URL}/k-drama`)
-      .then(movies => displayMovies(movies, 'movies-carousel-k-drama'))
+      .then(movies => displayMovies(movies, 'movies-carousel-k-drama', 'k-drama')) // Pass category
       .catch(console.error);
-      
+
       // Fetch and display bollywood-movie
     fetchMovies(`${BASE_API_URL}/bollywood-movie`)
-      .then(movies => displayMovies(movies, 'movies-carousel-bollywood-movie'))
+      .then(movies => displayMovies(movies, 'movies-carousel-bollywood-movie', 'bollywood-movie')) // Pass category
       .catch(console.error);
-      
+
       // Fetch and display hollywood-movie
     fetchMovies(`${BASE_API_URL}/hollywood-movie`)
-      .then(movies => displayMovies(movies, 'movies-carousel-hollywood-movie'))
+      .then(movies => displayMovies(movies, 'movies-carousel-hollywood-movie', 'hollywood-movie')) // Pass category
       .catch(console.error);
-      
-      
+
+
       // Fetch and display hindi-series
     fetchMovies(`${BASE_API_URL}/hindi-series`)
-      .then(movies => displayMovies(movies, 'movies-carousel-hindi-series'))
+      .then(movies => displayMovies(movies, 'movies-carousel-hindi-series', 'hindi-series')) // Pass category
       .catch(console.error);
-      
-      
+
+
       // Fetch and display english-series
     fetchMovies(`${BASE_API_URL}/english-series`)
-      .then(movies => displayMovies(movies, 'movies-carousel-english-series'))
+      .then(movies => displayMovies(movies, 'movies-carousel-english-series', 'english-series')) // Pass category
       .catch(console.error);
-      
-      
+
+
       // Fetch and display chinese-movie
     fetchMovies(`${BASE_API_URL}/chinese-movie`)
-      .then(movies => displayMovies(movies, 'movies-carousel-chinese-movie'))
+      .then(movies => displayMovies(movies, 'movies-carousel-chinese-movie', 'chinese-movie')) // Pass category
       .catch(console.error);
-      
-      
+
+
       // Fetch and display south-movie
     fetchMovies(`${BASE_API_URL}/south-movie`)
-      .then(movies => displayMovies(movies, 'movies-carousel-south-movie'))
+      .then(movies => displayMovies(movies, 'movies-carousel-south-movie', 'south-movie')) // Pass category
       .catch(console.error);
-      
-      
+
+
       // Fetch and display korean-movie
     fetchMovies(`${BASE_API_URL}/korean-movie`)
-      .then(movies => displayMovies(movies, 'movies-carousel-korean-movie'))
+      .then(movies => displayMovies(movies, 'movies-carousel-korean-movie', 'korean-movie')) // Pass category
       .catch(console.error);
   </script>
 
 
-<script>
+  <script>
     // Toggle Dark/Light Mode
     function toggleMode() {
       const body = document.body;
@@ -828,10 +853,7 @@
         modeButton.classList.replace('fa-sun', 'fa-moon'); // Moon icon for dark mode
       }
     }
-  </script> 
+  </script>
 
-
-	
-  <script src="auth.js"></script>
 </body>
 </html>

@@ -96,17 +96,17 @@
     }
 
     .sidebar h3 {
-      text-align: center;
+      text-align: left; /* **CHANGED: Left align sidebar heading** */
       margin-top: -20px; /* Adjust if needed to align with logo */
       margin-bottom: 20px;
       color: #0ff; /* Bright color for branding */
       font-size: 24px;
+      padding: 0 25px; /* Add padding for alignment */
     }
 
     .sidebar ul {
       list-style: none;
       padding: 0;
-      /* text-align: left; /* Removed this for specific control on menu items */
     }
 
     .sidebar ul li {
@@ -143,7 +143,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between; /* Pushes the chevron to the right */
-        padding: 12px 25px;
+        padding: 12px 25px; /* Consistent padding */
         color: white;
         text-decoration: none;
         font-size: 16px;
@@ -230,10 +230,10 @@
       position: sticky; /* Sticky to bottom of sidebar if content is short */
       bottom: 0;
       width: 100%;
-      text-align: left; /* Align footer text to the left */
+      text-align: left; /* **CHANGED: Left align sidebar footer** */
       color: #ccc;
       font-size: 12px; /* Slightly smaller for sidebar footer */
-      padding: 15px 25px; /* Added left/right padding */
+      padding: 15px 25px; /* Added left/right padding for alignment */
       background: #111; /* Darker background for footer in sidebar */
       border-top: 1px solid rgba(255,255,255,0.1);
     }
